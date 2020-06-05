@@ -1,5 +1,6 @@
 # OBS Bongobs Cat Plugin
- This plugin is based on the built in Live2d CubismNativeFrameWork and opengl. 
+ This plugin is based on the built in Live2d CubismNativeFrameWork and opengl.
+ Bongo cat overlay for OBS Plugin
  # 支持
 * 支持 OBS Studio version** : 25.0.0+
 # Support
