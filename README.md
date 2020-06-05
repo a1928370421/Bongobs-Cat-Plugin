@@ -6,10 +6,10 @@
 # Support
 * Support OBS Studio version** : 25.0.0+
 # 如何使用
-* 下载 [obs-plugins.zip ]()
+* 下载 [BangoCat.zip]()
 * 解压缩到OBS根目录
 # How to use
-* Download [obs-plugins.zip ]()
+* Download [BangoCat.zip]()
 * Unzip file to obs root direction
 # 
 ![bc.png](https://github.com/a1928370421/Bongobs-Cat-Plugin/blob/master/Resources/Bango%20Cat/bc.PNG)
