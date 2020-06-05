@@ -1,0 +1,6 @@
+﻿  Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt
+  visualinfo.c
+E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\src\visualinfo.c(1096,28): warning C4133: “=”: 从“char [5]”到“LPCWSTR”的类型不兼容
+E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\src\visualinfo.c(1101,1): warning C4133: “函数”: 从“char [5]”到“LPCWSTR”的类型不兼容
+E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\src\visualinfo.c(1132,25): warning C4133: “函数”: 从“char [5]”到“LPCWSTR”的类型不兼容
+  visualinfo.vcxproj -> E:\obs\build\bin\MinSizeRel\visualinfo.exe

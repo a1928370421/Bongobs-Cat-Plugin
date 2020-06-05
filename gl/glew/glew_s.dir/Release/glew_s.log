@@ -1,0 +1,3 @@
+﻿  Building Custom Rule E:/obspl/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt
+  glew.c
+  glew_s.vcxproj -> E:\obspl\build\lib\Release\libglew32.lib

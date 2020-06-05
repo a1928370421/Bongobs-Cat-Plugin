@@ -1,0 +1,3 @@
+﻿    正在创建库 E:/obs/build/lib/Debug/glew32d.lib 和对象 E:/obs/build/lib/Debug/glew32d.exp
+LINK : warning LNK4281: x64 映像的基址 0x62AA0000 不适当；将基址设为 4 GB 以上以实现最佳 ASLR 优化
+  glew.vcxproj -> E:\obs\build\bin\Debug\glew32d.dll
