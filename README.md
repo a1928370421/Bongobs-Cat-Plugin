@@ -11,4 +11,4 @@
 # How to use
 * Download [Bango.Cat.zip](https://github.com/a1928370421/Bongobs-Cat-Plugin/releases/download/0%2C1.0/Bango.Cat.zip)
 * Unzip file to OBS root direction
-![]()
+![](https://github.com/a1928370421/Bongobs-Cat-Plugin/blob/master/Resources/ezgif-2-2d5ba7544532.gif)
