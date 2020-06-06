@@ -59,26 +59,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glfw.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glfw3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glfw.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glfw3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">glfw.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">glfw3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">glfw.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">glfw3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsC</CompileAs>
@@ -97,10 +97,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DEBUG=1;_DEBUG=1;_GLFW_USE_CONFIG_H;_UNICODE;_CRT_SECURE_NO_WARNINGS;UNICODE;_CRT_NONSTDC_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -132,10 +132,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_GLFW_USE_CONFIG_H;_UNICODE;_CRT_SECURE_NO_WARNINGS;UNICODE;_CRT_NONSTDC_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -148,7 +148,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -167,10 +167,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_GLFW_USE_CONFIG_H;_UNICODE;_CRT_SECURE_NO_WARNINGS;UNICODE;_CRT_NONSTDC_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -183,7 +183,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -201,10 +201,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_GLFW_USE_CONFIG_H;_UNICODE;_CRT_SECURE_NO_WARNINGS;UNICODE;_CRT_NONSTDC_NO_WARNINGS;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src;E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -216,10 +216,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/src/CMakeLists.txt</Message>
+    <CustomBuild Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -227,12 +227,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -240,12 +240,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -253,12 +253,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -266,37 +266,37 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include\GLFW\glfw3.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\include\GLFW\glfw3native.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\internal.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\mappings.h" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\context.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\init.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\input.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\monitor.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\vulkan.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\window.c" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_platform.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_joystick.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\wgl_context.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\egl_context.h" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\osmesa_context.h" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_init.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_joystick.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_monitor.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_time.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_thread.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\win32_window.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\wgl_context.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\egl_context.c" />
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\src\osmesa_context.c" />
-    <ClInclude Include="E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\glfw_config.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\internal.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\mappings.h" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\context.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\init.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\input.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\monitor.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\vulkan.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\window.c" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_platform.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_joystick.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\wgl_context.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\egl_context.h" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\osmesa_context.h" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_init.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_joystick.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_monitor.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_time.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_thread.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\win32_window.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\wgl_context.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\egl_context.c" />
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\src\osmesa_context.c" />
+    <ClInclude Include="E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\glfw_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\obs\build\ZERO_CHECK.vcxproj">

@@ -12,29 +12,46 @@
 
 #define MAXVIEWDATA 1024
 
-class LAppModel;
+#define MAXMODECOUNT 8
+
+class Model;
 class Sprite;
 
 enum SelectTarget
     {
         SelectTarget_None,                ///< デフォルトのフレームバッファにレンダリング
-        SelectTarget_ModelFrameBuffer,    ///< LAppModelが各自持つフレームバッファにレンダリング
+        SelectTarget_ModelFrameBuffer,    ///< Modelが各自持つフレームバッファにレンダリング
         SelectTarget_ViewFrameBuffer,     ///< Viewの持つフレームバッファにレンダリング
     };
 
 /**
 * @brief 描画クラス
 */
+struct Mode {
+	Sprite *_back;       ///< 背景画像
+	Sprite *_catback; ///< 背景画像&猫
+
+	bool isUseRightHandModel;
+	Sprite *_rightHandUp; ///< 右爪
+	uint16_t _rightHandsCount;
+	Sprite *_rightHands[15];
+
+	Sprite *_leftHandUp; ///< 左爪
+	uint16_t _leftHandsCount;
+	Sprite *_leftHands[15];
+
+	uint16_t _keysCount;
+	Sprite *_keys[15];
+};
 struct ViewData {
 	Csm::CubismViewMatrix *_viewMatrix;
 	Csm::CubismMatrix44 *_deviceToScreen;
 	SelectTarget target;
 
-	Sprite *_back; ///< 背景画像
-	Sprite *_leftHandUp; ///< 左爪
-	Sprite *_hands[15];
-	Sprite *_Keys[15];
+	Mode _mode[MAXMODECOUNT];
 };
+
+
 
 class View
 {
@@ -52,9 +69,9 @@ public:
 
     void InitializeSpirite(int id);
 
-    void PreModelDraw(LAppModel& refModel,int id);
+    void PreModelDraw(Model& refModel,int id);
 
-    void PostModelDraw(LAppModel &refModel, int id);
+    void PostModelDraw(Model &refModel, int id);
 
     void SwitchRenderingTarget(SelectTarget targetType,int id);
 
@@ -102,10 +119,19 @@ public:
 
       bool GetRButton();
 
+      void setMod(uint16_t i);
+
+      void setLive2D(bool _isLive2D);
+
 private:
     void UpdataViewData(int id);
 
+    int TranslateKey(int key,int id);
+
     ViewData _viewData[MAXVIEWDATA];
+
+    uint16_t _mod;
+    bool isUseLive2d;
 
     uint16_t dataCount;
     GLuint _programId;                       ///< シェーダID

@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -76,7 +76,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -86,7 +86,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -96,7 +96,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -105,10 +105,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\obs\build\CMakeFiles\7b3f5eb8e628f47da98baafb929671af\uninstall.rule">
+    <CustomBuild Include="E:\obs\build\CMakeFiles\df99561b4dcefdbd47edd4512a1f1c94\uninstall.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/cmake_uninstall.cmake
+"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/cmake_uninstall.cmake
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -117,12 +117,12 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\uninstall</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\uninstall</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/cmake_uninstall.cmake
+"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/cmake_uninstall.cmake
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -131,12 +131,12 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\uninstall</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\uninstall</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/cmake_uninstall.cmake
+"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/cmake_uninstall.cmake
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -145,12 +145,12 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\uninstall</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\uninstall</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/cmake_uninstall.cmake
+"C:\Program Files\CMake\bin\cmake.exe" -P E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/cmake_uninstall.cmake
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -159,16 +159,16 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\uninstall</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\uninstall</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
+    <CustomBuild Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -176,12 +176,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -189,12 +189,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -202,12 +202,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -215,13 +215,13 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\cmake_uninstall.cmake.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\glew.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glew\CMakeFiles\uninstall" />
+    <None Include="E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glew\CMakeFiles\uninstall" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\obs\build\ZERO_CHECK.vcxproj">

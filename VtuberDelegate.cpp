@@ -66,7 +66,7 @@ bool VtuberDelegate::Initialize(int id)
 	 
 	    _hook->Strat();
 	    isFirst = false;
-	 // GLFWの初期化
+	    // GLFWの初期化
 	    if (glfwInit() == GL_FALSE)
 	    {
 		return GL_FALSE;
@@ -94,6 +94,7 @@ bool VtuberDelegate::Initialize(int id)
     InitializeCubism();
 
     _view->InitializeSpirite(id);
+
 
     return GL_TRUE;
 }
@@ -152,27 +153,40 @@ void VtuberDelegate::updataModelSetting(bool _randomMotion, double _delayTime,
 	_renderInfo[id].isTrack = _istrack;
 }
 
-bool VtuberDelegate::GetRandomMotion(int _id)
+void VtuberDelegate::ChangeMode(const char *_mode,bool _live2d, int id)
+{
+	for (int i = 0; i < ModeCount; i++) {
+		const char *a = ModeDefine[i];
+		if (strcmp(_mode, ModeDefine[i])==0) {
+			_view->setMod(i);
+			
+		}			
+	}
+	_view->setLive2D(_live2d);	
+}
+
+
+bool VtuberDelegate::GetRandomMotion(int _id) const
 {
 	return _renderInfo[_id].randomMotion;
 }
 
-double VtuberDelegate::GetDelayTime(int _id)
+double VtuberDelegate::GetDelayTime(int _id) const
 {
 	return _renderInfo[_id].delayTime;
 }
 
-bool VtuberDelegate::GetBreath(int id)
+bool VtuberDelegate::GetBreath(int id) const
 {
 	return _renderInfo[id].isBreath;
 }
 
-bool VtuberDelegate::GetEyeBlink(int id)
+bool VtuberDelegate::GetEyeBlink(int id) const
 {
 	return _renderInfo[id].isEyeBlink;
 }
 
-bool VtuberDelegate::GetTrack(int id)
+bool VtuberDelegate::GetTrack(int id) const
 {
 	return _renderInfo[id].isTrack;
 }

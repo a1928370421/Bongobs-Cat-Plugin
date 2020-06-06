@@ -29,36 +29,37 @@ static int HookCode(DWORD code)
 	{
 	// Char keys for ASCI
 	// No VM Def in header
+        //standard mode
 	case 0x41:
-		key = 11;
+		key = 11;//a
 		break;
 	case 0x44:
-		key = 12;
+		key = 13;//d
 		break;
 	case 0x45:
-		key = 8;
+		key = 9; //e
 		break;
 	case 0x51:
-		key = 7;
+		key = 7; //q
 		break;
 	case 0x52:
-		key = 9;
+		key = 10; //r
 		break;
 	case 0x53:
-		key =13;
+		key =12;//s
 		break;
 	case 0x57:
-		key = 14;
+		key = 8;//w
 		break;
 	// Num Keyboard
 	case 0x31:
-		key = 0;
+		key = 0;// 1 key
 		break;
 	case 0x32:
-		key = 1;
+		key = 1;// 2 key
 		break;
 	case 0x33:
-		key = 2;
+		key = 2;// 3 key
 		break;
 	case 0x34:
 		key = 3;
@@ -70,10 +71,28 @@ static int HookCode(DWORD code)
 		key = 5;
 		break;
 	case 0x37:
-		key = 6;
+		key = 6;// 7 key
 		break;
 	case VK_SPACE:
-		key = 10;
+ 		key = 14; 
+		break;
+	case VK_LSHIFT:
+		key = 15;
+		break;
+	case VK_LCONTROL:
+		key = 16;
+		break;
+	case VK_UP:
+		key = 17;
+		break;
+	case VK_DOWN:
+		key = 18;
+		break;
+	case VK_RIGHT:
+		key = 19;
+		break;
+	case VK_LEFT:
+		key = 20;
 		break;
 	default:
 		key = -1;

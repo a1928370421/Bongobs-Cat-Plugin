@@ -19,19 +19,19 @@
  *         モデル生成、機能コンポーネント生成、更新処理とレンダリングの呼び出しを行う。
  *
  */
-class LAppModel : public Csm::CubismUserModel
+class Model : public Csm::CubismUserModel
 {
 public:
     /**
      * @brief コンストラクタ
      */
-    LAppModel();
+    Model();
 
     /**
      * @brief デストラクタ
      *
      */
-    virtual ~LAppModel();
+    virtual ~Model();
 
     /**
      * @brief model3.jsonが置かれたディレクトリとファイルパスからモデルを生成する

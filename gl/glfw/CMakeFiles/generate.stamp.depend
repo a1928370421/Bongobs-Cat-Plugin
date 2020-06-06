@@ -11,6 +11,6 @@ C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageMessage.cmake
 C:/Program Files/CMake/share/cmake-3.17/Modules/GNUInstallDirs.cmake
 C:/Program Files/CMake/share/cmake-3.17/Modules/WriteBasicConfigVersionFile.cmake
 E:/obs/obs-studio-master/cmake/Modules/FindThreads.cmake
-E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMake/glfw3.pc.in
-E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMake/glfw3Config.cmake.in
-E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMakeLists.txt
+E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMake/glfw3.pc.in
+E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMake/glfw3Config.cmake.in
+E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMakeLists.txt

@@ -13,7 +13,7 @@
 #include "Pal.hpp"
 #include "Define.hpp"
 #include "VtuberDelegate.hpp"
-#include "LAppModel.hpp"
+#include "Model.hpp"
 #include "View.hpp"
 
 using namespace Csm;
@@ -67,7 +67,7 @@ void Live2DManager::ReleaseAllModel(Csm::csmUint16 id)
     _modeldata[id]._modelPath.Clear();
 }
 
-LAppModel *Live2DManager::GetModel(Csm::csmUint16 id) const
+Model *Live2DManager::GetModel(Csm::csmUint16 id) const
 {
     if (0 < _modeldata[id]._models.GetSize())
     {
@@ -89,7 +89,7 @@ void Live2DManager::OnUpdate(Csm::csmUint16 id) const
 	    projection.MultiplyByMatrix(_viewMatrix);	
     }
 
-        LAppModel* model = GetModel(id);
+        Model* model = GetModel(id);
 
 	if (model) {
 		VtuberDelegate::GetInstance()->GetView()->PreModelDraw(*model,id);
@@ -130,7 +130,7 @@ Csm::csmBool Live2DManager::ChangeScene(const Csm::csmChar *_modelPath,
     if (VtuberDelegate::GetInstance()->isLoadResource(_id))
 		ReleaseAllModel(_id);
 
-    _modeldata[_id]._models.PushBack(new LAppModel());
+    _modeldata[_id]._models.PushBack(new Model());
 
     if (_modeldata[_id]._models[0]->LoadAssets(modelPath.c_str(),modelJsonName.c_str())) {
 	    _modeldata[_id]._modelPath = _modelPath;
@@ -151,7 +151,7 @@ Csm::csmBool Live2DManager::ChangeScene(const Csm::csmChar *_modelPath,
         // Viewの持つターゲットに描画を行う場合、こちらを選択
         View::SelectTarget useRenderTarget = View::SelectTarget_ViewFrameBuffer;
 #elif defined(USE_MODEL_RENDER_TARGET)
-        // 各LAppModelの持つターゲットに描画を行う場合、こちらを選択
+        // 各Modelの持つターゲットに描画を行う場合、こちらを選択
         View::SelectTarget useRenderTarget = View::SelectTarget_ModelFrameBuffer;
 #else
         // デフォルトのメインフレームバッファへレンダリングする(通常)
@@ -160,7 +160,7 @@ Csm::csmBool Live2DManager::ChangeScene(const Csm::csmChar *_modelPath,
 
 #if defined(USE_RENDER_TARGET) || defined(USE_MODEL_RENDER_TARGET)
         // モデル個別にαを付けるサンプルとして、もう1体モデルを作成し、少し位置をずらす
-        _models.PushBack(new LAppModel());
+        _models.PushBack(new Model());
         _models[1]->LoadAssets(modelPath.c_str(), modelJsonName.c_str());
         _models[1]->GetModelMatrix()->TranslateX(0.2f);
 #endif

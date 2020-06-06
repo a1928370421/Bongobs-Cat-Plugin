@@ -14,7 +14,9 @@ public:
 	static void UinitVtuber(int id);
 
 	static void UpData(int id,double _x, double _y, int width, int height,
-			   double scale,double delayTime, bool randomMotion,bool breath,bool eyeBlink, const char *ModelName,bool track);
+			   double scale,double delayTime, bool randomMotion,
+		bool breath,bool eyeBlink, const char *ModelName,bool track,
+		const char *modelPath,bool _live2d);
 
 	static int GetWidth(int id);
 

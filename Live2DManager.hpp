@@ -14,7 +14,7 @@
 #include <Math/CubismViewMatrix.hpp>
 #include <Type/csmVector.hpp>
 
-class LAppModel;
+class Model;
 
 /**
 * @brief サンプルアプリケーションにおいてCubismModelを管理するクラス<br>
@@ -24,7 +24,7 @@ class LAppModel;
 class Live2DManager
 {
 	struct ModelData {
-		Csm::csmVector<LAppModel *>_models; ///< モデルインスタンスのコンテナ
+		Csm::csmVector<Model *>_models; ///< モデルインスタンスのコンテナ
 		Csm::csmString _modelPath;
 	};
 
@@ -49,7 +49,7 @@ public:
     * @param[in]   no  モデルリストのインデックス値
     * @return      モデルのインスタンスを返す。インデックス値が範囲外の場合はNULLを返す。
     */
-    LAppModel *GetModel(Csm::csmUint16 id) const;
+    Model *GetModel(Csm::csmUint16 id) const;
 
     /**
     * @brief   現在のシーンで保持しているすべてのモデルを解放する

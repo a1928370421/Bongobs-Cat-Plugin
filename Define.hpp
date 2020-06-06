@@ -45,14 +45,38 @@ namespace Define {
     extern const csmChar *ParaLeftButton;
     extern const csmChar *ParaRightButton;
 
+    extern const csmInt32 KeyAmount;
+    extern const csmChar *KeyDefine[];
+
     extern const csmChar *ResourcesPath;
     extern const csmChar *CatModelPath;
     extern const csmChar *RightHandModelPath;
-    extern const csmChar *ImagePath;
+
+    extern const csmChar *ModeImagePath;
+    extern const csmChar *ModeDefine[];
+    extern const csmInt32 ModeCount;
+
+    extern const csmInt32 ModelRightHandCount[];
+    extern const csmInt32 ModelLeftHandCount[];
+    extern const csmInt32 ModelKeyCount[];
+
+    extern const csmChar *Mod1KeyUse[];
+    extern const csmChar *Mod2KeyUse[];
+
+    extern const csmBool ModelRightHandModel[];
+
     extern const csmChar *BackImageName;
+    extern const csmChar *CatBackImageName;
+
+    extern const csmChar *LeftHandImagePath;
     extern const csmChar *LeftHandUpImageName;
-    extern const csmChar *HandImagePath;
-    extern const csmChar *KeyBoardImagePath;
-    extern const csmChar *HandImageName[];
+    extern const csmChar *LeftHandImageName[];
+
+    extern const csmChar *RightHandImagePath;
+    extern const csmChar *RightHandUpImageName;
+    extern const csmChar *RightHandImageName[];
+    
+    extern const csmChar *KeyboardImagePath;
+    extern const csmChar *KeyImageName[];
 
     }

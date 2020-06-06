@@ -105,10 +105,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMakeLists.txt</Message>
+    <CustomBuild Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -116,12 +116,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -129,12 +129,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -142,12 +142,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/live2d-plugin/thirdParty/glfw/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glfw/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glfw/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/obs/obs-studio-master -BE:/obs/build --check-stamp-file E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glfw/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -155,8 +155,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\WriteBasicConfigVersionFile.cmake;E:\obs\obs-studio-master\cmake\Modules\FindThreads.cmake;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3.pc.in;E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glfw\CMake\glfw3Config.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
@@ -169,7 +169,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="E:\obs\obs-studio-master\plugins\live2d-plugin\gl\glfw\src\glfw.vcxproj">
+    <ProjectReference Include="E:\obs\obs-studio-master\plugins\bongobs-cat\gl\glfw\src\glfw.vcxproj">
       <Project>{D211631B-0AC9-3568-BECD-F4C8D2D2870C}</Project>
       <Name>glfw</Name>
     </ProjectReference>

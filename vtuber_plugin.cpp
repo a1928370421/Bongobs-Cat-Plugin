@@ -2,17 +2,17 @@
 #include "VtuberPlugin.hpp"
 
 OBS_DECLARE_MODULE()
-OBS_MODULE_USE_DEFAULT_LOCALE("live2d_plugin", "en-US")
+OBS_MODULE_USE_DEFAULT_LOCALE("bongobs-cat", "en-US")
 MODULE_EXPORT const char *obs_module_description(void)
 {
-	return "Live2D";
+	return "Bongo Cat";
 }
 
 bool obs_module_load(void)
 {
 	obs_source_info Vtuber_video{
 	};
-	Vtuber_video.id = "Live2D";
+	Vtuber_video.id = "bongobs-cat";
 	Vtuber_video.type = OBS_SOURCE_TYPE_INPUT;
 	Vtuber_video.output_flags = OBS_SOURCE_VIDEO;
 	Vtuber_video.get_name =

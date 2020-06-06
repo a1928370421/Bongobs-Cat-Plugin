@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="E:\obs\build\CMakeFiles\1ab84d4d745d19fee376d6350f785d3e\PACKAGE_force.rule">
+    <CustomBuild Include="E:\obs\build\CMakeFiles\508051c95f657ce76f9295b30cb5acfc\PACKAGE_force.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>

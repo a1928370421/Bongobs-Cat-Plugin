@@ -15,6 +15,8 @@
 #define V_SPEED = "Speed"
 #define V_RANDOMMOTION = "RandomMotion"
 #define V_Track = "Track"
+#define V_Mode = "Mode"
+#define V_LIVE2D = "Live2"
 
 namespace{
 	struct Vtuber_data {
@@ -29,7 +31,7 @@ namespace{
 const char * VtuberPlugin::VtuberPlugin::VtuberGetName(void *unused)
 {
 	UNUSED_PARAMETER(unused);
-	return "bango cat";
+	return "bongobs cat";
 }
 
 void * VtuberPlugin::VtuberPlugin::VtuberCreate(obs_data_t *settings,
@@ -49,10 +51,17 @@ void * VtuberPlugin::VtuberPlugin::VtuberCreate(obs_data_t *settings,
 	bool breath = obs_data_get_bool(settings, "breath");
 	bool eyeblink = obs_data_get_bool(settings, "eyeblink");
 	bool track = obs_data_get_bool(settings, "track");
-	//SETTING body
-	VtuberFrameWork::UpData(0 ,x, y, width, height, scale,delayTime, random_motion, breath,eyeblink, NULL,track);
-	//setting right hanf
-	VtuberFrameWork::UpData(1, -0.3, 0.42, width, height, 4.0,delayTime, random_motion, breath,eyeblink, NULL,track);
+	const char *mode = obs_data_get_string(settings, "mode");
+	bool live2D = obs_data_get_bool(settings, "live2d");
+
+	//setting body
+	VtuberFrameWork::UpData(0, x, y, width, height, scale, delayTime,
+				random_motion, breath, eyeblink, NULL, track,
+				mode, live2D);
+	//setting right hand
+	VtuberFrameWork::UpData(1, -0.27, 0.30, width, height, 4.0, delayTime,
+				random_motion, breath, eyeblink, NULL, track,
+				mode, live2D);
 
 	VtuberFrameWork::InitVtuber(0);
 
@@ -128,12 +137,14 @@ obs_properties_t * VtuberPlugin::VtuberPlugin::VtuberGetProperties(void *data)
 
         //obs_properties_add_path(ppts, "models_path",obs_module_text("ModelsPath"), OBS_PATH_FILE,"*.model3.json", "Resources/");
 
-	/*
-	p = obs_properties_add_list(ppts, "model","Model",
+	
+	p = obs_properties_add_list(ppts, "mode", obs_module_text("Mode"),
 				    OBS_COMBO_TYPE_LIST,
 				    OBS_COMBO_FORMAT_STRING);
 
-	fill_vtuber_model_list(p, vtb);*/
+	obs_property_list_add_string(p,"Standard","standard/");
+	obs_property_list_add_string(p, "KeyBoard", "keyboard/");
+
 	//obs_property_set_modified_callback(p, vtuber_model_callback);
 	
 	//obs_properties_add_int(ppts, "width", obs_module_text("Width"), 32, 1900, 32);
@@ -143,6 +154,7 @@ obs_properties_t * VtuberPlugin::VtuberPlugin::VtuberGetProperties(void *data)
 	//obs_properties_add_float_slider(ppts, "y", obs_module_text("Y"), -3.0, 3.0, 0.1);
 	obs_properties_add_float_slider(ppts, "delay", obs_module_text("Speed"), 0.0, 10.0, 0.1);
 	//obs_properties_add_bool(ppts,"random_motion",obs_module_text("RandomMotion"));
+	obs_properties_add_bool(ppts, "live2d", obs_module_text("Live2D"));
 	obs_properties_add_bool(ppts, "breath", obs_module_text("Breath"));
 	obs_properties_add_bool(ppts, "eyeblink", obs_module_text("EyeBlink"));
 	obs_properties_add_bool(ppts, "track", obs_module_text("Track"));
@@ -165,24 +177,28 @@ void VtuberPlugin::VtuberPlugin::Vtuber_update(
 	bool breath = obs_data_get_bool(settings, "breath");
 	bool eyeblink = obs_data_get_bool(settings, "eyeblink");
 	bool track = obs_data_get_bool(settings, "track");
+	const char *mode = obs_data_get_string(settings, "mode");
+	bool live2D = obs_data_get_bool(settings, "live2d");
 	const char *vtb_str = NULL; //obs_data_get_string(settings, "models_path");
 
 	VtuberFrameWork::UpData(vtb->modelId, x, y, width, height, vscale,
-				delayTime, random_motion, breath,
-				eyeblink, vtb_str,track);
+				delayTime, random_motion, breath, eyeblink,
+				vtb_str, track, mode, live2D);
 }
 
 void VtuberPlugin::VtuberPlugin::Vtuber_defaults(
 	obs_data_t *settings)
 {
 	obs_data_set_default_int(settings, "width", 1200);
-	obs_data_set_default_int(settings, "height", 700);
+	obs_data_set_default_int(settings, "height", 780);
 	obs_data_set_default_double(settings, "x", 0);
-	obs_data_set_default_double(settings, "y", 0);
-	obs_data_set_default_double(settings, "scale", 2.0);
+	obs_data_set_default_double(settings, "y", -0.1);
+	obs_data_set_default_double(settings, "scale", 1.8);
 	obs_data_set_default_double(settings, "delaytime", 1.0);
 	obs_data_set_default_bool(settings, "random_motion", true);
 	obs_data_set_default_bool(settings, "breath",true);
 	obs_data_set_default_bool(settings, "eyeblink",true);
 	obs_data_set_default_bool(settings, "track", true);
+	obs_data_set_default_string(settings, "Mode", "standard");
+	obs_data_set_default_bool(settings, "live2d", true);
 }

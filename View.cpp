@@ -6,14 +6,14 @@
 #include "Live2DManager.hpp"
 #include "LAppTextureManager.hpp"
 #include "Define.hpp"
-#include "LAppModel.hpp"
+#include "Model.hpp"
 #include "Sprite.hpp"
 #include "EventManager.hpp"
 
 using namespace std;
 using namespace Define;
 
-View::View() : _programId(0), dataCount(0)
+View::View() : _programId(0), dataCount(0), _mod(0), isUseLive2d(true)
 {
     _clearColor[0] = 1.0f;
     _clearColor[1] = 1.0f;
@@ -89,6 +89,7 @@ void View::Release(int id) {
 }
 
 void View::UpdataViewData(int id) {
+
     int width, height;
     width = VtuberDelegate::GetInstance()->getBufferWidth(id);
     height = VtuberDelegate::GetInstance()->getBufferHeight(id);
@@ -97,41 +98,89 @@ void View::UpdataViewData(int id) {
     y = VtuberDelegate::GetInstance()->GetY(id);
     scale = VtuberDelegate::GetInstance()->getScale(id);
 
-    _viewData[id]._viewMatrix->Scale(0.6*scale, scale);
+    _viewData[id]._viewMatrix->Scale(0.65*scale, scale);
     double _x = -static_cast<float>(RenderTargetWidth - width) /static_cast<float>(RenderTargetWidth);
     double _y = -static_cast<float>(RenderTargetHeight-height) /static_cast<float>(RenderTargetHeight);
     _viewData[id]._viewMatrix->Translate(x + _x, y+_y);
 }
 
+int View::TranslateKey(int key, int id)
+{
+	for (int i = 0; i < KeyAmount; i++) {
+		for (int j = 0; j < _viewData[id]._mode[_mod]._keysCount; j++) {
+			if (_mod == 0) {
+				if (strcmp(Mod1KeyUse[j], KeyDefine[key]) == 0)
+					return j;
+			} else {
+				if (strcmp(Mod2KeyUse[j],KeyDefine[key]) == 0)
+					return j;
+			}
+		}
+	}
+	return -1;
+}
+
 void View::Render(int id)
 {
 	Live2DManager* Live2DManager = Live2DManager::GetInstance();
-	//render cat
+
 	UpdataViewData(id);
-	Live2DManager->OnUpdate(id);
 
-	_viewData[id]._back->Render(id);
+	//render cat
+	if (isUseLive2d) {
+		Live2DManager->OnUpdate(id);
+		_viewData[id]._mode[_mod]._back->Render(id);
+	} else {
+		_viewData[id]._mode[_mod]._catback->Render(id);
+	}
 
-	//render right hand
-	UpdataViewData(1);
-	Live2DManager->OnUpdate(1);
-
-	for (int i = 0; i < 15; i++) {
+	//render key
+	for (int i = 0; i < KeyAmount; i++) {
 		if (eventManager->GetKeySignal(i)) {
-			_viewData[id]._Keys[i]->Render(id);
+			int key = TranslateKey(i, id);
+			if (key != -1) {
+				_viewData[id]._mode[_mod]._keys[key]->Render(id);
+			}	
 		}
 	}
 
+	//render left hand
 	bool isUp = true;
-	for (int i = 0; i < 15; i++) {
-		if (eventManager->GetKeySignal(i)) {	
-			_viewData[id]._hands[i]->Render(id);
-			isUp = false;
-			break;//cat only have one left hand
+	for (int i = 0; i < KeyAmount; i++) {
+		if (eventManager->GetKeySignal(i)) {
+			int key = TranslateKey(i, id);
+			if (key != -1 && key < _viewData[id]._mode[_mod]._leftHandsCount) {
+				_viewData[id]._mode[_mod]._leftHands[key]->Render(id);
+				isUp = false;
+				break; //cat only have one right hand
+			}	
 		}			
 	}
 	if (isUp)
-		_viewData[id]._leftHandUp->Render(id);
+		_viewData[id]._mode[_mod]._leftHandUp->Render(id);
+
+	//render right hand
+	if (_viewData[id]._mode[_mod].isUseRightHandModel) {
+		UpdataViewData(1);
+		Live2DManager->OnUpdate(1);
+	} else {
+		bool isUp = true;
+		for (int i = 0; i < KeyAmount; i++) {
+			if (eventManager->GetKeySignal(i)) {
+				int key = TranslateKey(i, id);
+				key -= _viewData[id]._mode[_mod]._leftHandsCount;
+				if (key > -1) {
+					_viewData[id]._mode[_mod]._rightHands[key]->Render(id);
+					isUp = false;
+					break; //cat only have one right hand
+				}				
+			}
+		}
+		if (isUp)
+			_viewData[id]._mode[_mod]._rightHandUp->Render(id);
+	}
+
+	
 }
 
 void View::InitializeSpirite(int id) {
@@ -144,55 +193,128 @@ void View::InitializeSpirite(int id) {
 	LAppTextureManager *textureManager =VtuberDelegate::GetInstance()->GetTextureManager();
 
 	const string resourcesPath = ResourcesPath;
-	const string imagepath = ImagePath;
-	const string handimagepath = HandImagePath;
-	const string keyboardimagepath = KeyBoardImagePath;
 
-	string imageName = BackImageName;	
-	LAppTextureManager::TextureInfo *backgroundTexture =
-		textureManager->CreateTextureFromPngFile(resourcesPath +imagepath + imageName);
+	const string backImageName = BackImageName;
+	const string catBackImageName = CatBackImageName;
+	const string leftHandImagePath = LeftHandImagePath;
+	const string leftHandUpImageName = LeftHandUpImageName;
+	const string rightHandImagePath = RightHandImagePath;
+	const string rightHandUpImageName = RightHandUpImageName;
+	const string keyboardimagepath = KeyboardImagePath;
 
-	float x = width*0.5;
-	float y = height * 0.5;
-	float fWidth = static_cast<float>(backgroundTexture->width);
-	float fHeight = static_cast<float>(backgroundTexture->height);
-	_viewData[id]._back = new Sprite(x, y, fWidth, fHeight,backgroundTexture->id,_programId);
+	for (int _modelCount = 0; _modelCount < ModeCount; _modelCount++) {
 
-	imageName = LeftHandUpImageName;
-	LAppTextureManager::TextureInfo *LeftHandUpTexture =textureManager->CreateTextureFromPngFile(resourcesPath +imagepath + imageName);
-	x = width * 0.5f;
-	y = height * 0.5f;
-	fWidth = static_cast<float>(LeftHandUpTexture->width);
-	fHeight = static_cast<float>(LeftHandUpTexture->height);
-	_viewData[id]._leftHandUp = new Sprite(x, y, fWidth, fHeight, LeftHandUpTexture->id, _programId);
+		string targetPath = resourcesPath + ModeImagePath+ModeDefine[_modelCount];
 
-	//Load left hands
-	for (int i = 0; i < 15; i++) {
-		imageName = HandImageName[i];
-		LAppTextureManager::TextureInfo *HandsTexture =textureManager->CreateTextureFromPngFile(resourcesPath + imagepath + handimagepath +imageName);
+		/***************************** backgroud ***************************************/
+		LAppTextureManager::TextureInfo *backgroundTexture =
+			textureManager->CreateTextureFromPngFile(targetPath +backImageName);
+		float x = width*0.5;
+		float y = height * 0.45;
+		float fWidth = static_cast<float>(backgroundTexture->width);
+		float fHeight = static_cast<float>(backgroundTexture->height);
+		_viewData[id]._mode[_modelCount]._back =
+			new Sprite(x, y, fWidth, fHeight, backgroundTexture->id, _programId);
+
+
+		LAppTextureManager::TextureInfo *catbackgroundTexture =
+			textureManager->CreateTextureFromPngFile(targetPath + catBackImageName);
+		x = width * 0.5;
+		y = height * 0.45;
+		fWidth = static_cast<float>(catbackgroundTexture->width);
+		fHeight =static_cast<float>(catbackgroundTexture->height);
+		_viewData[id]._mode[_modelCount]._catback =
+			new Sprite(x, y, fWidth, fHeight,catbackgroundTexture->id,_programId);
+
+		/***************************** lefthand ***************************************/
+		//load left hand up
+		LAppTextureManager::TextureInfo *LeftHandUpTexture =
+			textureManager->CreateTextureFromPngFile(
+				targetPath + leftHandImagePath +
+				leftHandUpImageName);
 		x = width * 0.5f;
-		y = height * 0.5f;
-		fWidth = static_cast<float>(HandsTexture->width );
-		fHeight = static_cast<float>(HandsTexture->height);
-		_viewData[id]._hands[i] = new Sprite(x, y, fWidth, fHeight, HandsTexture->id,_programId);
-	}
-	//load keyboard
-	for (int i = 0; i < 15; i++) {
-		imageName = HandImageName[i];
-		LAppTextureManager::TextureInfo *KeysTexture =
-			textureManager->CreateTextureFromPngFile(resourcesPath + imagepath + keyboardimagepath +
-				imageName);
-		x = width * 0.5f;
-		y = height * 0.5f;
-		fWidth = static_cast<float>(KeysTexture->width);
-		fHeight = static_cast<float>(KeysTexture->height);
-		_viewData[id]._Keys[i] = new Sprite(
-			x, y, fWidth, fHeight, KeysTexture->id, _programId);
+		y = height * 0.45f;
+		fWidth = static_cast<float>(LeftHandUpTexture->width);
+		fHeight = static_cast<float>(LeftHandUpTexture->height);
+		_viewData[id]._mode[_modelCount]._leftHandUp =
+			new Sprite(x, y, fWidth, fHeight, LeftHandUpTexture->id,_programId);
+
+		//load left hands
+		_viewData[id]._mode[_modelCount]._leftHandsCount =ModelLeftHandCount[_modelCount];
+		for (int i = 0; i < ModelLeftHandCount[_modelCount]; i++) {
+			string imageName = LeftHandImageName[i];
+			LAppTextureManager::TextureInfo *HandsTexture =
+				textureManager->CreateTextureFromPngFile(
+					targetPath +
+					leftHandImagePath +
+					imageName);
+			x = width * 0.5f;
+			y = height * 0.5f;
+			fWidth = static_cast<float>(HandsTexture->width);
+			fHeight = static_cast<float>(HandsTexture->height);
+			_viewData[id]._mode[_modelCount]._leftHands[i]=
+				new Sprite(x, y, fWidth, fHeight,HandsTexture->id, _programId);
+		}
+
+		
+		/***************************** righthands ***************************************/
+		_viewData[id]._mode[_modelCount].isUseRightHandModel = ModelRightHandModel[_modelCount];		
+		_viewData[id]._mode[_modelCount]._rightHandsCount = ModelRightHandCount[_modelCount];
+		if (!ModelRightHandModel[_modelCount]) {
+			//load righthandsup
+			LAppTextureManager::TextureInfo *RightHandUpTexture =
+				textureManager->CreateTextureFromPngFile(
+					targetPath +
+					rightHandImagePath +
+					rightHandUpImageName);
+			x = width * 0.5f;
+			y = height * 0.45f;
+			fWidth = static_cast<float>(RightHandUpTexture->width);
+			fHeight =static_cast<float>(RightHandUpTexture->height);
+			_viewData[id]._mode[_modelCount]._rightHandUp =
+				new Sprite(x, y, fWidth, fHeight,RightHandUpTexture->id, _programId);
+
+			//Load right hands
+			for (int i = 0; i < ModelRightHandCount[_modelCount];
+			     i++) {
+				string imageName = RightHandImageName[i];
+				LAppTextureManager::TextureInfo *HandsTexture =
+					textureManager->CreateTextureFromPngFile(
+						targetPath + rightHandImagePath +imageName);
+				x = width * 0.5f;
+				y = height * 0.45f;
+				fWidth =static_cast<float>(HandsTexture->width);
+				fHeight = static_cast<float>(HandsTexture->height);
+				_viewData[id]._mode[_modelCount]._rightHands[i] =
+					new Sprite(x, y, fWidth, fHeight,
+						   HandsTexture->id,
+						   _programId);
+			}
+
+		}
+
+		/***************************** keys ***************************************/
+		_viewData[id]._mode[_modelCount]._keysCount = ModelKeyCount[_modelCount];
+		//load keyboard
+		for (int i = 0; i < ModelKeyCount[_modelCount]; i++) {
+			string imageName = KeyImageName[i];
+			LAppTextureManager::TextureInfo *KeysTexture =
+				textureManager->CreateTextureFromPngFile(
+					targetPath + keyboardimagepath +
+					imageName);
+			x = width * 0.5f;
+			y = height * 0.45f;
+			fWidth = static_cast<float>(KeysTexture->width);
+			fHeight = static_cast<float>(KeysTexture->height);
+			_viewData[id]._mode[_modelCount]._keys[i]=
+				new Sprite(x, y, fWidth, fHeight, KeysTexture->id, _programId);
+		}
+
 	}
 
 }
 
-void View::PreModelDraw(LAppModel& refModel,int id)
+void View::PreModelDraw(Model& refModel,int id)
 {
     Csm::Rendering::CubismOffscreenFrame_OpenGLES2* useTarget = NULL;
 
@@ -219,7 +341,7 @@ void View::PreModelDraw(LAppModel& refModel,int id)
     }
 }
 
-void View::PostModelDraw(LAppModel& refModel,int id)
+void View::PostModelDraw(Model& refModel,int id)
 {
     Csm::Rendering::CubismOffscreenFrame_OpenGLES2* useTarget = NULL;
 
@@ -327,5 +449,14 @@ bool View::GetLButton()
 bool View::GetRButton()
 {
 	return eventManager->GetRightButton();
+}
+
+void View::setMod(uint16_t i)
+{
+	_mod = i;
+}
+
+void View::setLive2D(bool _isLive2D) {
+	isUseLive2d = _isLive2D;
 }
 

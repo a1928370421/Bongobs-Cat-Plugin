@@ -5,7 +5,7 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-#include "LAppModel.hpp"
+#include "Model.hpp"
 #include <fstream>
 #include <vector>
 #include <CubismModelSettingJson.hpp>
@@ -39,7 +39,7 @@ namespace {
     }
 }
 
-LAppModel::LAppModel()
+Model::Model()
 	: CubismUserModel(),
 	  _modelSetting(NULL),
 	  _userTimeSeconds(0.0f),
@@ -66,7 +66,7 @@ LAppModel::LAppModel()
     _idParamRightButton =CubismFramework::GetIdManager()->GetId(ParaRightButton);
 }
 
-LAppModel::~LAppModel()
+Model::~Model()
 {
     _renderBuffer.DestroyOffscreenFrame();
 
@@ -81,7 +81,7 @@ LAppModel::~LAppModel()
     delete(_modelSetting);
 }
 
-csmBool LAppModel::LoadAssets(const csmChar* dir, const csmChar* fileName)
+csmBool Model::LoadAssets(const csmChar* dir, const csmChar* fileName)
 {
     _modelHomeDir = dir;
 
@@ -111,7 +111,7 @@ csmBool LAppModel::LoadAssets(const csmChar* dir, const csmChar* fileName)
 
 
 
-Csm::csmBool LAppModel::SetupModel(ICubismModelSetting *setting)
+Csm::csmBool Model::SetupModel(ICubismModelSetting *setting)
 {
     _updating = true;
     _initialized = false;
@@ -269,7 +269,7 @@ Csm::csmBool LAppModel::SetupModel(ICubismModelSetting *setting)
     return true;
 }
 
-csmBool LAppModel::PreloadMotionGroup(const csmChar* group)
+csmBool Model::PreloadMotionGroup(const csmChar* group)
 {
     const csmInt32 count = _modelSetting->GetMotionCount(group);
 
@@ -320,7 +320,7 @@ csmBool LAppModel::PreloadMotionGroup(const csmChar* group)
     return true;
 }
 
-void LAppModel::ReleaseMotionGroup(const csmChar* group) const
+void Model::ReleaseMotionGroup(const csmChar* group) const
 {
     const csmInt32 count = _modelSetting->GetMotionCount(group);
     for (csmInt32 i = 0; i < count; i++)
@@ -339,7 +339,7 @@ void LAppModel::ReleaseMotionGroup(const csmChar* group) const
 *
 * すべてのモーションデータを解放する。
 */
-void LAppModel::ReleaseMotions()
+void Model::ReleaseMotions()
 {
     for (csmMap<csmString, ACubismMotion*>::const_iterator iter = _motions.Begin(); iter != _motions.End(); ++iter)
     {
@@ -354,7 +354,7 @@ void LAppModel::ReleaseMotions()
 *
 * すべての表情データを解放する。
 */
-void LAppModel::ReleaseExpressions()
+void Model::ReleaseExpressions()
 {
     for (csmMap<csmString, ACubismMotion*>::const_iterator iter = _expressions.Begin(); iter != _expressions.End(); ++iter)
     {
@@ -364,7 +364,7 @@ void LAppModel::ReleaseExpressions()
     _expressions.Clear();
 }
 
-void LAppModel::Update(Csm::csmUint16 _id)
+void Model::Update(Csm::csmUint16 _id)
 {
     const csmFloat32 deltaTimeSeconds =delayTime * GetDeltaTime();
     _userTimeSeconds += deltaTimeSeconds;
@@ -403,15 +403,15 @@ void LAppModel::Update(Csm::csmUint16 _id)
 
 
     if (isTrack) {
-	    _model->AddParameterValue(_idParamAngleX,mouseX * 30); // -30から30の値を加える
+	    _model->AddParameterValue(_idParamAngleX,(1-mouseX) * 30); // -30から30の値を加える
 	    _model->AddParameterValue(_idParamAngleY, (1-mouseY) * 30);
-	    _model->AddParameterValue(_idParamAngleZ, mouseX * mouseY * -30);
+	    _model->AddParameterValue(_idParamAngleZ,(1 - mouseX) * (1 - mouseY) * -30);
     
-	    _model->AddParameterValue(_idParamEyeBallX, mouseX * 30); ///< パラメータID: ParamEyeBallX
-	    _model->AddParameterValue(_idParamEyeBallY, mouseY * 30); ///< パラメータID: ParamEyeBallXY
+	    _model->AddParameterValue(_idParamEyeBallX,(1 - mouseX) * 30); ///< パラメータID: ParamEyeBallX
+	    _model->AddParameterValue(_idParamEyeBallY, (1 - mouseY) * 30); ///< パラメータID: ParamEyeBallXY
 
-	    _model->AddParameterValue(_idParamMouseX, mouseX*30-10);
-	    _model->AddParameterValue(_idParamMouseY, (1 - mouseY) * 30 - 10);
+	    _model->AddParameterValue(_idParamMouseX, (1 - mouseX) * 60 - 30);
+	    _model->AddParameterValue(_idParamMouseY, (1 - mouseY) * 60 - 30);
     }
 
     if (rButton)
@@ -458,7 +458,7 @@ void LAppModel::Update(Csm::csmUint16 _id)
 
 }
 
-CubismMotionQueueEntryHandle LAppModel::StartMotion(const csmChar* group, csmInt32 no, csmInt32 priority, ACubismMotion::FinishedMotionCallback onFinishedMotionHandler)
+CubismMotionQueueEntryHandle Model::StartMotion(const csmChar* group, csmInt32 no, csmInt32 priority, ACubismMotion::FinishedMotionCallback onFinishedMotionHandler)
 {
     if (priority == PriorityForce)
     {
@@ -532,7 +532,7 @@ end:
     return  _motionManager->StartMotionPriority(motion, autoDelete, priority);
 }
 
-CubismMotionQueueEntryHandle LAppModel::StartRandomMotion(csmInt32 priority, ACubismMotion::FinishedMotionCallback onFinishedMotionHandler)
+CubismMotionQueueEntryHandle Model::StartRandomMotion(csmInt32 priority, ACubismMotion::FinishedMotionCallback onFinishedMotionHandler)
 {
 	csmInt32 nog;
 	if (_modelSetting->GetMotionGroupCount() == 0) {
@@ -551,7 +551,7 @@ CubismMotionQueueEntryHandle LAppModel::StartRandomMotion(csmInt32 priority, ACu
 	return StartMotion(group, no, priority, onFinishedMotionHandler);
 }
 
-void LAppModel::DoDraw()
+void Model::DoDraw()
 {
     if (_model == NULL)
     {
@@ -561,7 +561,7 @@ void LAppModel::DoDraw()
     GetRenderer<Rendering::CubismRenderer_OpenGLES2>()->DrawModel();
 }
 
-void LAppModel::Draw(CubismMatrix44& matrix)
+void Model::Draw(CubismMatrix44& matrix)
 {
     if (_model == NULL)
     {
@@ -575,7 +575,7 @@ void LAppModel::Draw(CubismMatrix44& matrix)
     DoDraw();
 }
 
-void LAppModel::SetExpression(const csmChar* expressionID)
+void Model::SetExpression(const csmChar* expressionID)
 {
     ACubismMotion* motion = _expressions[expressionID];
     if (_debugMode)
@@ -593,7 +593,7 @@ void LAppModel::SetExpression(const csmChar* expressionID)
     }
 }
 
-void LAppModel::SetRandomExpression()
+void Model::SetRandomExpression()
 {
     if (_expressions.GetSize() == 0)
     {
@@ -615,7 +615,7 @@ void LAppModel::SetRandomExpression()
     }
 }
 
-void LAppModel::ReloadRenderer()
+void Model::ReloadRenderer()
 {
     DeleteRenderer();
 
@@ -624,7 +624,7 @@ void LAppModel::ReloadRenderer()
     SetupTextures();
 }
 
-void LAppModel::SetupTextures()
+void Model::SetupTextures()
 {
     for (csmInt32 modelTextureNumber = 0; modelTextureNumber < _modelSetting->GetTextureCount(); modelTextureNumber++)
     {
@@ -653,17 +653,17 @@ void LAppModel::SetupTextures()
 
 }
 
-void LAppModel::MotionEventFired(const csmString& eventValue)
+void Model::MotionEventFired(const csmString& eventValue)
 {
-    CubismLogInfo("%s is fired on LAppModel!!", eventValue.GetRawString());
+    CubismLogInfo("%s is fired on Model!!", eventValue.GetRawString());
 }
 
-Csm::Rendering::CubismOffscreenFrame_OpenGLES2& LAppModel::GetRenderBuffer()
+Csm::Rendering::CubismOffscreenFrame_OpenGLES2& Model::GetRenderBuffer()
 {
     return _renderBuffer;
 }
 
-void LAppModel::UpdataSetting(Csm::csmBool _randomMotion,
+void Model::UpdataSetting(Csm::csmBool _randomMotion,
 			      Csm::csmFloat32 _delayTime,
 			      Csm::csmBool _isBreath,
 			      Csm::csmBool _isEyeBlink,
@@ -684,12 +684,12 @@ void LAppModel::UpdataSetting(Csm::csmBool _randomMotion,
 	isTrack = _isTrack;
 }
 
-csmFloat32 LAppModel::GetDeltaTime()
+csmFloat32 Model::GetDeltaTime()
 {
 	return static_cast<csmFloat32>(s_deltaTime);
 }
 
-void LAppModel::UpdateTime() {
+void Model::UpdateTime() {
 		s_currentFrame = glfwGetTime();
 		s_deltaTime = s_currentFrame - s_lastFrame;
 		s_lastFrame = s_currentFrame;

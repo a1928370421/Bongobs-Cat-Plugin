@@ -1,13 +1,13 @@
-if(NOT EXISTS "E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/install_manifest.txt")
-endif(NOT EXISTS "E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/install_manifest.txt")
+if(NOT EXISTS "E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/install_manifest.txt")
+endif(NOT EXISTS "E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/install_manifest.txt")
 
 if (NOT DEFINED CMAKE_INSTALL_PREFIX)
   set (CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/obs-studio")
 endif ()
  message(${CMAKE_INSTALL_PREFIX})
 
-file(READ "E:/obs/obs-studio-master/plugins/live2d-plugin/gl/glew/install_manifest.txt" files)
+file(READ "E:/obs/obs-studio-master/plugins/bongobs-cat/gl/glew/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
   message(STATUS "Uninstalling $ENV{DESTDIR}${file}")

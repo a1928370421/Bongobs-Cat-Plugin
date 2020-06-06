@@ -42,12 +42,7 @@ class VtuberDelegate {
 	};
 
 public:
-    /**
-    * @brief   クラスのインスタンス（シングルトン）を返す。<br>
-    *           インスタンスが生成されていない場合は内部でインスタンを生成する。
-    *
-    * @return  クラスのインスタンス
-    */
+
 	static VtuberDelegate *GetInstance();
 
 	static void ReleaseInstance();
@@ -95,15 +90,17 @@ public:
     void updataModelSetting(bool _randomMotion, double _delayTime, bool _breath,
 			    bool _eyeBlink,bool _track,int id);
 
-    bool GetRandomMotion(int id);
+    void ChangeMode(const char *_mode, bool _live2D, int id);
 
-    double GetDelayTime(int id);
+    bool GetRandomMotion(int id) const;
 
-    bool GetBreath(int id);
+    double GetDelayTime(int id) const;
 
-    bool GetEyeBlink(int id);
+    bool GetBreath(int id) const;
 
-    bool GetTrack(int id);
+    bool GetEyeBlink(int id) const;
+
+    bool GetTrack(int id) const;
 
     GLuint CreateShader();
 

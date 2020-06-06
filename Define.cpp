@@ -43,18 +43,54 @@ namespace Define {
     const csmChar *ParaLeftButton = "LeftButton";
     const csmChar *ParaRightButton = "RightButton";
 
+    const csmInt32 KeyAmount = 21;
+    const csmChar *KeyDefine[] = {"1", "2", "3", "4", "5", "6", "7",
+				  "q", "w", "e", "r", "a", "s","d",
+				  "space","shift","ctrl","up","down",
+				  "left","right"};
+
     const csmChar *ResourcesPath = "Bango Cat/";
     const csmChar *CatModelPath = "Resources/cat/cat.model3.json";
     const csmChar *RightHandModelPath = "Resources/right hand/RightHand.model3.json";
-    const csmChar *ImagePath = "img/standard/";
-    const csmChar *BackImageName = "l2dmousebg.png";
-    const csmChar *LeftHandUpImageName = "up.png";
-    const csmChar *HandImagePath = "hand/";
-    const csmChar *KeyBoardImagePath = "KeyBoard/";
-    const csmChar *HandImageName[] = {"0.png",  "1.png",  "2.png",  "3.png",
-				      "4.png",  "5.png",  "6.png",  "7.png",
+
+    const csmChar *ModeImagePath= "img/";
+    const csmChar *ModeDefine[] = {"standard/","keyboard/"};
+    const csmInt32 ModeCount = 2;
+
+    const csmBool ModelRightHandModel[] = {true,false};
+    const csmInt32 ModelRightHandCount[] = {0,4};
+    const csmInt32 ModelLeftHandCount[] = {15,3};
+    const csmInt32 ModelKeyCount[] = {15,7};
+
+    const csmChar *Mod1KeyUse[] = {"1","2", "3", "4", "5","6","7", "q",
+				    "e", "r", "space", "a", "d", "s", "w"};
+
+    const csmChar *Mod2KeyUse[] = {"ctrl", "shift", "r",
+				    "down",  "right", "left","up"};
+  
+    const csmChar *BackImageName = "bg.png";
+    const csmChar *CatBackImageName = "catbg.png";
+
+    const csmChar *LeftHandImagePath = "lefthand/";
+    const csmChar *LeftHandUpImageName = "leftup.png";
+    const csmChar *LeftHandImageName[] = {"0.png",  "1.png",  "2.png",
+					  "3.png","4.png",  "5.png",  "6.png",  "7.png",
 				      "8.png",  "9.png",  "10.png", "11.png",
 				      "12.png", "13.png", "14.png"};
 
+    const csmChar *RightHandImagePath = "righthand/";
+    const csmChar *RightHandUpImageName ="rightup.png";
+    const csmChar *RightHandImageName[] = {"0.png",  "1.png",  "2.png",
+					   "3.png",  "4.png",  "5.png",
+					   "6.png",  "7.png",  "8.png",
+					   "9.png",  "10.png", "11.png",
+					   "12.png", "13.png", "14.png"};
+
+    
+    const csmChar *KeyboardImagePath = "KeyBoard/";
+    const csmChar *KeyImageName[] = {"0.png",  "1.png",  "2.png",  "3.png",
+				     "4.png",  "5.png",  "6.png",  "7.png",
+				     "8.png",  "9.png",  "10.png", "11.png",
+				     "12.png", "13.png", "14.png"};
 
     }

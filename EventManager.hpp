@@ -8,7 +8,7 @@
 #pragma once
 #include <queue>
 
-#define MAXKEYNUM 15
+#define MAXKEYNUM 22
 
 struct KeyEvent {
 	bool KeyBoardSignal;
@@ -39,6 +39,7 @@ public:
     bool IsFlickAvailable() const { return _flipAvailable; }
     void DisableFlick() { _flipAvailable = false; }
     bool GetKeySignal(int i) { return _keyEvent[i].KeyBoardSignal; }
+    bool GetKeySignal2(int i) { return _keyEvent[i].KeyBoardSignal; }
     bool GetRightButton() { return _rightButton; }
     bool GetLeftButton() { return _leftButton; }
 

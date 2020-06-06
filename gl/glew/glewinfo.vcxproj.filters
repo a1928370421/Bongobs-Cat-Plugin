@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\src\glewinfo.c">
+    <ClCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\src\glewinfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\cmake\CMakeLists.txt" />
+    <CustomBuild Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\cmake\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="E:\obs\obs-studio-master\plugins\live2d-plugin\thirdParty\glew\build\glewinfo.rc">
+    <ResourceCompile Include="E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\build\glewinfo.rc">
       <Filter>Source Files</Filter>
     </ResourceCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 # Set app name.
-set(APP_NAME live2d_plugin)
+set(APP_NAME bongobs-cat)
 
 # Set directory paths.
 set(SDK_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
@@ -92,7 +92,7 @@ set(${APP_NAME}_SOURCES
 	Define.cpp	
 	VtuberDelegate.cpp	
 	Live2DManager.cpp
-	LAppModel.cpp	
+	Model.cpp	
 	Pal.cpp	
 	LAppTextureManager.cpp
 	LAppTextureManager.hpp
@@ -102,6 +102,7 @@ set(${APP_NAME}_SOURCES
         Sprite.cpp
         Hook.cpp
 	EventManager.cpp
+        Hook.cpp
 	)
 
 set(${APP_NAME}_HEADERS
@@ -109,7 +110,7 @@ set(${APP_NAME}_HEADERS
 	Define.hpp
 	VtuberDelegate.hpp
 	Live2DManager.hpp
-	LAppModel.hpp
+	Model.hpp
 	Pal.hpp
 	View.hpp
 	VtuberFrameWork.hpp
@@ -117,6 +118,7 @@ set(${APP_NAME}_HEADERS
         Sprite.hpp
         Hook.hpp
         EventManager.hpp
+        Hook.hpp
 )
 
 #find_package(Thread REQUIRED)
