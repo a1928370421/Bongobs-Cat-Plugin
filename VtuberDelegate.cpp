@@ -59,11 +59,6 @@ void VtuberDelegate::ReleaseResource(int id) {
 	_renderInfo[id].isLoadResource = false;
 	_view->Release(id);
 }
-void ErrorCallback(int, const char *err_str)
-{
-	string a = err_str;
-	string b = a;
-}
 
 bool VtuberDelegate::Initialize(int id)
 {
@@ -72,8 +67,6 @@ bool VtuberDelegate::Initialize(int id)
     if (isFirst) {
 	   
 	    isFirst = false;
-	    glfwTerminate();
-	    glfwSetErrorCallback(ErrorCallback);
 	    // GLFWの初期化
 	    if (glfwInit() == GL_FALSE)
 	    {
@@ -135,7 +128,7 @@ void VtuberDelegate::Release()
 void VtuberDelegate::Reader(int id,char *buffer,int bufferWidth, int bufferheight)
 {
 	glEnable(GL_MULTISAMPLE);
-	glfwMakeContextCurrent(_window);
+
 	glClearColor(0.0, 0.0, 0.0,0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//描画更新
