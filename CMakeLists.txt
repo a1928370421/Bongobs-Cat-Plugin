@@ -88,28 +88,29 @@ find_package(OpenGL REQUIRED)
 
 set(${APP_NAME}_SOURCES
 	vtuber_plugin.cpp
-	LAppAllocator.cpp
-	Define.cpp	
-	VtuberDelegate.cpp	
+ 	VtuberPlugin.cpp
+	VtuberFrameWork.cpp  
+	VtuberDelegate.cpp
+	View.cpp	
 	Live2DManager.cpp
 	Model.cpp	
 	Pal.cpp	
-	LAppTextureManager.cpp
-	LAppTextureManager.hpp
-	View.cpp	
-	VtuberFrameWork.cpp  	    
-	VtuberPlugin.cpp
+	LAppTextureManager.cpp			    
+	LAppAllocator.cpp
         Sprite.cpp
         Hook.cpp
 	EventManager.cpp
-        Hook.cpp
+	Define.cpp
+	json.cpp
+	InfoReader.cpp
 	)
 
-set(${APP_NAME}_HEADERS
+set(${APP_NAME}_HEADERS	
 	LAppAllocator.hpp
 	Define.hpp
 	VtuberDelegate.hpp
 	Live2DManager.hpp
+	LAppTextureManager.hpp
 	Model.hpp
 	Pal.hpp
 	View.hpp
@@ -118,14 +119,16 @@ set(${APP_NAME}_HEADERS
         Sprite.hpp
         Hook.hpp
         EventManager.hpp
-        Hook.hpp
+	InfoReader.hpp
+	json.h
+	json-forwards.h
 )
 
 #find_package(Thread REQUIRED)
 
 add_library(${APP_NAME} MODULE
 	${${APP_NAME}_SOURCES}
-	${${APP_NAME}_HEADERS}	
+	${${APP_NAME}_HEADERS}    	
 )
 
 # Link libraries to app.

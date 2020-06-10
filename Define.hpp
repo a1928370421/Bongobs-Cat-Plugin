@@ -1,17 +1,7 @@
-/**
- * Copyright(c) Live2D Inc. All rights reserved.
- *
- * Use of this source code is governed by the Live2D Open Software license
- * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
- */
 #pragma once
 
 #include <CubismFramework.hpp>
 
-/**
-* @brief  Sample Appで使用する定数
-*
-*/
 namespace Define {
 
     using namespace Csm;
@@ -36,7 +26,7 @@ namespace Define {
     // Frameworkから出力するログのレベル設定
     extern const CubismFramework::Option::LogLevel CubismLoggingLevel;
     extern const csmBool DebugMod;
-        // デフォルトのレンダーターゲットサイズ
+    // デフォルトのレンダーターゲットサイズ
     extern const csmInt32 RenderTargetWidth;
     extern const csmInt32 RenderTargetHeight;
 
@@ -49,34 +39,8 @@ namespace Define {
     extern const csmChar *KeyDefine[];
 
     extern const csmChar *ResourcesPath;
-    extern const csmChar *CatModelPath;
-    extern const csmChar *RightHandModelPath;
-
-    extern const csmChar *ModeImagePath;
-    extern const csmChar *ModeDefine[];
-    extern const csmInt32 ModeCount;
-
-    extern const csmInt32 ModelRightHandCount[];
-    extern const csmInt32 ModelLeftHandCount[];
-    extern const csmInt32 ModelKeyCount[];
-
-    extern const csmChar *Mod1KeyUse[];
-    extern const csmChar *Mod2KeyUse[];
-
-    extern const csmBool ModelRightHandModel[];
-
-    extern const csmChar *BackImageName;
-    extern const csmChar *CatBackImageName;
-
-    extern const csmChar *LeftHandImagePath;
-    extern const csmChar *LeftHandUpImageName;
-    extern const csmChar *LeftHandImageName[];
-
-    extern const csmChar *RightHandImagePath;
-    extern const csmChar *RightHandUpImageName;
-    extern const csmChar *RightHandImageName[];
-    
-    extern const csmChar *KeyboardImagePath;
-    extern const csmChar *KeyImageName[];
+    extern const csmChar *ModePath;
+    extern const csmChar *MaskPath;
+    extern const csmChar *KPSPath;
 
     }

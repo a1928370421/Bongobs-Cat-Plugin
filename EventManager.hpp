@@ -6,9 +6,10 @@
  */
 
 #pragma once
-#include <queue>
 
-#define MAXKEYNUM 22
+#define KEYAMOUT 200
+
+#include <queue>
 
 struct KeyEvent {
 	bool KeyBoardSignal;
@@ -35,9 +36,6 @@ public:
     float GetY1() const{ return _lastY1; }
     float GetX2() const{ return _lastX2; }
     float GetY2() const{ return _lastY2; }
-    bool IsSingleTouch() const { return _touchSingle; }
-    bool IsFlickAvailable() const { return _flipAvailable; }
-    void DisableFlick() { _flipAvailable = false; }
     bool GetKeySignal(int i) { return _keyEvent[i].KeyBoardSignal; }
     bool GetKeySignal2(int i) { return _keyEvent[i].KeyBoardSignal; }
     bool GetRightButton() { return _rightButton; }
@@ -70,9 +68,15 @@ public:
     void MouseEventMoved(float deviceX1, float deviceY1, float deviceX2,
 			 float deviceY2);
 
-    int GetCurrentMouseX();
-
-    int GetCurrentMouseY();
+    /*
+    * @brief 
+    *
+    * @param[in] width   
+    * @param[in] height  
+    * @param[in] deviceX  
+    * @param[in] deviceY 
+    */
+    void MouseEventMoved(int width, int height, float deviceX, float deviceY);
 
     void KeyEventDown(int key);
 
@@ -85,6 +89,12 @@ public:
     void RightButtonDown();
 
     void RightButtonUp();
+
+    void SetRelativeMouse(int _rx, int _ry);
+
+    void GetRelativeMouse(int &_rx, int &_ry);
+
+    void GetCurrentMousePosition(int &_x, int &_y);
 
     /*
     * @brief フリックの距離測定
@@ -124,18 +134,15 @@ private:
     float _lastY1;              // ダブルタッチ時の一つ目のyの値
     float _lastX2;              // ダブルタッチ時の二つ目のxの値
     float _lastY2;              // ダブルタッチ時の二つ目のyの値
-    float _lastTouchDistance;   // 2本以上でタッチしたときの指の距離
     float _deltaX;              // 前回の値から今回の値へのxの移動距離。
     float _deltaY;              // 前回の値から今回の値へのyの移動距離。
     float _scale;               // このフレームで掛け合わせる拡大率。拡大操作中以外は1。
-    bool _touchSingle;          // シングルタッチ時はtrue
-    bool _flipAvailable;        // フリップが有効かどうか
 
-    KeyEvent _keyEvent[MAXKEYNUM];
+    KeyEvent _keyEvent[KEYAMOUT];
 
     bool _leftButton;
     bool _rightButton;
 
-    std::queue<bool> *lqueue;
-    std::queue<bool> *rqueue;
+    int _relativemouseX;
+    int _relativemouseY;
 };

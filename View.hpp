@@ -7,15 +7,20 @@
 #include <Math/CubismViewMatrix.hpp>
 #include "CubismFramework.hpp"
 #include <Rendering/OpenGL/CubismOffscreenSurface_OpenGLES2.hpp>
-#include "EventManager.hpp"
 
 
 #define MAXVIEWDATA 1024
 
-#define MAXMODECOUNT 8
+#define MAXMODECOUNT 24
+
+#define MAXKEYCOUNT 128
+
+#define MAXFACECOUNT 64
 
 class Model;
 class Sprite;
+class InfoReader;
+class EventManager;
 
 enum SelectTarget
     {
@@ -31,24 +36,37 @@ struct Mode {
 	Sprite *_back;       ///< 背景画像
 	Sprite *_catback; ///< 背景画像&猫
 
-	bool isUseRightHandModel;
+	bool _haseModel;
+	int _modelId;
+
+	bool _hasRightHandModel;
+	int _leftHandModelId;
+
 	Sprite *_rightHandUp; ///< 右爪
 	uint16_t _rightHandsCount;
-	Sprite *_rightHands[15];
+	Sprite *_rightHands[MAXKEYCOUNT];
+
+	bool _hasLeftHandModel;
+	int _rightHandModelId;
 
 	Sprite *_leftHandUp; ///< 左爪
 	uint16_t _leftHandsCount;
-	Sprite *_leftHands[15];
+	Sprite *_leftHands[MAXKEYCOUNT];
 
 	uint16_t _keysCount;
-	Sprite *_keys[15];
+	Sprite *_keys[MAXKEYCOUNT];
 };
+
 struct ViewData {
 	Csm::CubismViewMatrix *_viewMatrix;
 	Csm::CubismMatrix44 *_deviceToScreen;
-	SelectTarget target;
 
+	int _modecount;
 	Mode _mode[MAXMODECOUNT];
+
+	int _curentface;
+	int _faceCount;
+	Sprite *_face[MAXFACECOUNT];
 };
 
 
@@ -69,9 +87,11 @@ public:
 
     void InitializeSpirite(int id);
 
-    void PreModelDraw(Model& refModel,int id);
+    void InitializeModel(int id);
 
-    void PostModelDraw(Model &refModel, int id);
+    void PreModelDraw(Model& refModel);
+
+    void PostModelDraw(Model &refModel);
 
     void SwitchRenderingTarget(SelectTarget targetType,int id);
 
@@ -81,7 +101,7 @@ public:
 
      Csm::CubismMatrix44 *GetDeviceToScreenMatrix(int id);
 
-     uint16_t GetTotalViewer();
+     InfoReader *GetInfoReader();
 
      /**
     * @brief X座標をView座標に変換する。
@@ -97,47 +117,49 @@ public:
     */
      float TransformViewY(float deviceY,int id) const;
 
+     EventManager *GetEventManager();
+
      void OnMouseMoved(float pointX, float pointY,int id) const;
 
-     void OnKeyDown(int _key) const;
+     void Update(bool _isLive2D,bool _isUseMask);
 
-     void OnKeyUp(int _key) const;
-
-     double GetMouseX();
-
-     double GetMouseY();
-
-     void OnRButtonDown() const;
-
-     void OnRButtonUp() const;
-
-     void OnLButtonDown() const;
-
-     void OnLButtonUp() const;
-
-      bool GetLButton();
-
-      bool GetRButton();
-
-      void setMod(uint16_t i);
-
-      void setLive2D(bool _isLive2D);
+     void setMod(uint16_t i);
 
 private:
     void UpdataViewData(int id);
 
     int TranslateKey(int key,int id);
 
+    int TranslateKey2(int key, int id);
+
+    void RenderBackgroud(int id);
+
+    void RenderCat(int id);
+
+    void RenderKeys(int id);
+
+    bool RenderLeftHands(int id);
+
+    bool RenderRightHands(int id);
+
+    void RenderUphands(bool leftup,bool righttup,int id);
+
+    void ReanderMask(int id);
+
+    void ChangeMode(int mod, int id);
+
     ViewData _viewData[MAXVIEWDATA];
 
     uint16_t _mod;
     bool isUseLive2d;
+    bool isUseMask;
 
-    uint16_t dataCount;
     GLuint _programId;                       ///< シェーダID
 
     Csm::Rendering::CubismOffscreenFrame_OpenGLES2 _renderBuffer;   ///< モードによってはCubismモデル結果をこっちにレンダリング
     float _clearColor[4];           ///< レンダリングターゲットのクリアカラー
 
+    SelectTarget target;
     EventManager *eventManager;
+    InfoReader *_infoReader;
 };

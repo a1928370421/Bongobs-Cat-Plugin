@@ -1,16 +1,12 @@
 #include "Pal.hpp"
-#include <cstdio>
-#include <stdarg.h>
-#include <sys/stat.h>
 #include <iostream>
 #include <fstream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <Model/CubismMoc.hpp>
 #include "Define.hpp"
 #include <Windows.h>
 #include <io.h>
 #include <codecvt>
+#include <filesystem>
 
 using std::endl;
 using namespace Csm;
@@ -91,7 +87,7 @@ void Pal::PrintMessage(const csmChar* message)
     PrintLog("%s", message);
 }
 
-bool Pal::IsFileExist(const char *csDir)
+bool Pal::IsFileExist(const Csm::csmChar *csDir)
 {
 	bool re;
 
@@ -111,44 +107,30 @@ bool Pal::IsFileExist(const char *csDir)
 	return re;
 }
 
-int Pal::GetAllDirName(const char *csDir, char **Files)
+int Pal::GetAllDirName(const Csm::csmChar *csDir, Csm::csmChar **Files)
 {
-	int i = 0;
+	return 0;
+}
 
-	//setup converter
-	using convert_type =codecvt_utf8<wchar_t>;
-	wstring_convert<convert_type,wchar_t>converter;
+const char *Pal::GetModelName(const char *filePath)
+{
+	string _filepath = filePath;
+	_filepath += "/*.model3.json";
 
-	int wchars_num = MultiByteToWideChar(CP_UTF8, 0, csDir, -1, NULL, 0);
-	wchar_t *wstr = new wchar_t[wchars_num];
-	MultiByteToWideChar(CP_UTF8, 0, csDir, -1, wstr, wchars_num);
-
-	wstring Path = wstring(wstr) + L"*";
-
-	HANDLE hFile;
-	WIN32_FIND_DATA findFileData;
-	string p;
-	hFile = FindFirstFile(Path.c_str(), &findFileData);
-	if (hFile){
-		
-		do {
-			if ((findFileData.dwFileAttributes == _A_SUBDIR)) {
-				if (strcmp((const char *)findFileData.cFileName, ".") != 0 &&
-				    strcmp((const char *)findFileData.cFileName,"..") !=0) {
-					wstring temp(findFileData.cFileName);
-					string converted_str =converter.to_bytes(temp);
-					Files[i] = (char*)malloc(converted_str.size()+1);
-					Files[i][converted_str.size()] = 0;
-					memcpy(Files[i],(const char*)converted_str.c_str(),converted_str.size());
-					i++;
-				}
-			}
-		
-		} while (FindNextFile(hFile, &findFileData));
-
-		FindClose(hFile);
+	struct _finddata_t fileInfo;
+	long long findResult = _findfirst(_filepath.c_str(), &fileInfo);
+	if (findResult == -1) {
+		_findclose(findResult);
+		return "";
 	}
-	return i;
+	_findclose(findResult);
+
+	string _filename = fileInfo.name;
+	char *buf = new char[_filename.size()+1];
+	buf[_filename.size()] = 0x00;
+	memcpy(buf, _filename.c_str(), _filename.size());
+
+	return buf;
 }
 
 void Pal::GetDesktopResolution(int &horizontal, int &vertical) {

@@ -35,62 +35,27 @@ namespace Define {
     const csmBool DebugMod = false;
 
     // デフォルトのレンダーターゲットサイズ
-    const csmInt32 RenderTargetWidth = 1200;
-    const csmInt32 RenderTargetHeight = 780;
+    const csmInt32 RenderTargetWidth = 1280;
+    const csmInt32 RenderTargetHeight = 768;
 
-    const csmChar *ParaMouseX= "Mousex";
-    const csmChar *ParaMouseY = "Mousey";
-    const csmChar *ParaLeftButton = "LeftButton";
-    const csmChar *ParaRightButton = "RightButton";
+    const csmChar *ParaMouseX= "ParamMouseX";
+    const csmChar *ParaMouseY = "ParamMouseY";
+    const csmChar *ParaLeftButton = "ParamMouseLeftDown";
+    const csmChar *ParaRightButton = "ParamMouseRightDown";
 
-    const csmInt32 KeyAmount = 21;
-    const csmChar *KeyDefine[] = {"1", "2", "3", "4", "5", "6", "7",
-				  "q", "w", "e", "r", "a", "s","d",
-				  "space","shift","ctrl","up","down",
-				  "left","right"};
+    const csmInt32 KeyAmount = 61;
+    const csmChar *KeyDefine[] = {
+	    "a","b","c","d","e","f","g","h","i","j","k","l",
+	    "m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+	    "0","1", "2","3","4","5","6", "7", "8","9",
+	    "space","lshift","lctrl",
+	    "f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12",
+	    "up","down","left","right","<",">","[","]","rshift","rctrl"};
 
     const csmChar *ResourcesPath = "Bango Cat/";
-    const csmChar *CatModelPath = "Resources/cat/cat.model3.json";
-    const csmChar *RightHandModelPath = "Resources/right hand/RightHand.model3.json";
 
-    const csmChar *ModeImagePath= "img/";
-    const csmChar *ModeDefine[] = {"standard/","keyboard/"};
-    const csmInt32 ModeCount = 2;
-
-    const csmBool ModelRightHandModel[] = {true,false};
-    const csmInt32 ModelRightHandCount[] = {0,4};
-    const csmInt32 ModelLeftHandCount[] = {15,3};
-    const csmInt32 ModelKeyCount[] = {15,7};
-
-    const csmChar *Mod1KeyUse[] = {"1","2", "3", "4", "5","6","7", "q",
-				    "e", "r", "space", "a", "d", "s", "w"};
-
-    const csmChar *Mod2KeyUse[] = {"ctrl", "shift", "r",
-				    "down",  "right", "left","up"};
-  
-    const csmChar *BackImageName = "bg.png";
-    const csmChar *CatBackImageName = "catbg.png";
-
-    const csmChar *LeftHandImagePath = "lefthand/";
-    const csmChar *LeftHandUpImageName = "leftup.png";
-    const csmChar *LeftHandImageName[] = {"0.png",  "1.png",  "2.png",
-					  "3.png","4.png",  "5.png",  "6.png",  "7.png",
-				      "8.png",  "9.png",  "10.png", "11.png",
-				      "12.png", "13.png", "14.png"};
-
-    const csmChar *RightHandImagePath = "righthand/";
-    const csmChar *RightHandUpImageName ="rightup.png";
-    const csmChar *RightHandImageName[] = {"0.png",  "1.png",  "2.png",
-					   "3.png",  "4.png",  "5.png",
-					   "6.png",  "7.png",  "8.png",
-					   "9.png",  "10.png", "11.png",
-					   "12.png", "13.png", "14.png"};
-
-    
-    const csmChar *KeyboardImagePath = "KeyBoard/";
-    const csmChar *KeyImageName[] = {"0.png",  "1.png",  "2.png",  "3.png",
-				     "4.png",  "5.png",  "6.png",  "7.png",
-				     "8.png",  "9.png",  "10.png", "11.png",
-				     "12.png", "13.png", "14.png"};
+    const csmChar *ModePath= "mode/";
+    const csmChar *MaskPath = "face/";
+    const csmChar *KPSPath = "kps/";
 
     }

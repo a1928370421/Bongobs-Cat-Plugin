@@ -1,0 +1,6 @@
+﻿  Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt
+  glewinfo.c
+E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\src\glewinfo.c(16621,28): warning C4133: “=”: 从“char [5]”到“LPCWSTR”的类型不兼容
+E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\src\glewinfo.c(16625,1): warning C4133: “函数”: 从“char [5]”到“LPCWSTR”的类型不兼容
+E:\obs\obs-studio-master\plugins\bongobs-cat\thirdParty\glew\src\glewinfo.c(16693,25): warning C4133: “函数”: 从“char [5]”到“LPCWSTR”的类型不兼容
+  glewinfo.vcxproj -> E:\obs\build\bin\RelWithDebInfo\glewinfo.exe

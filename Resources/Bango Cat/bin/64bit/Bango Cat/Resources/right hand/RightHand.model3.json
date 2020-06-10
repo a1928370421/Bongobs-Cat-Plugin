@@ -1,9 +1,0 @@
-{
-	"Version": 3,
-	"FileReferences": {
-		"Moc": "RightHand.moc3",
-		"Textures": [
-			"RightHand.1024/texture_00.png"
-		]
-	}
-}

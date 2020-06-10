@@ -51,7 +51,9 @@ Model::Model()
 	  s_lastFrame(0.0f),
 	  s_deltaTime(0.0f),
 	  rButton(false),
-	  lButton(false)
+	  lButton(false),
+	  isMouseHorizontalFlip(true),
+	  IsMouseVerticalFlip(true)
 
 {
     _idParamAngleX = CubismFramework::GetIdManager()->GetId(ParamAngleX);
@@ -108,7 +110,6 @@ csmBool Model::LoadAssets(const csmChar* dir, const csmChar* fileName)
 
     return true;
 }
-
 
 
 Csm::csmBool Model::SetupModel(ICubismModelSetting *setting)
@@ -408,21 +409,28 @@ void Model::Update(Csm::csmUint16 _id)
 	    _model->AddParameterValue(_idParamAngleZ,(1 - mouseX) * (1 - mouseY) * -30);
     
 	    _model->AddParameterValue(_idParamEyeBallX,(1 - mouseX) * 30); ///< パラメータID: ParamEyeBallX
-	    _model->AddParameterValue(_idParamEyeBallY, (1 - mouseY) * 30); ///< パラメータID: ParamEyeBallXY
-
-	    _model->AddParameterValue(_idParamMouseX, (1 - mouseX) * 60 - 30);
-	    _model->AddParameterValue(_idParamMouseY, (1 - mouseY) * 60 - 30);
+	    _model->AddParameterValue(_idParamEyeBallY, (1 - mouseY) * 30); ///< パラメータID: ParamEyeBallXY	   
     }
 
+    if (isMouseHorizontalFlip)
+	  _model->AddParameterValue(_idParamMouseX, mouseX * 60 - 30);
+    else 
+	  _model->AddParameterValue(_idParamMouseX, (1-mouseX) * 60 - 30);
+
+    if (IsMouseVerticalFlip)
+	_model->AddParameterValue(_idParamMouseY, (1 - mouseY) * 60 - 30);
+    else 
+	_model->AddParameterValue(_idParamMouseY, mouseY * 60 - 30);
+
     if (rButton)
-	    _model->AddParameterValue(_idParamRightButton, 30);
+	    _model->AddParameterValue(_idParamRightButton, 1);
     else
-	    _model->AddParameterValue(_idParamRightButton, -30);
+	    _model->AddParameterValue(_idParamRightButton, 0);
 
     if (lButton)
-	    _model->AddParameterValue(_idParamLeftButton, 30);
+	    _model->AddParameterValue(_idParamLeftButton, 1);
     else
-	    _model->AddParameterValue(_idParamLeftButton, -30);
+	    _model->AddParameterValue(_idParamLeftButton, 0);
 
     // 呼吸など
     if (_breath != NULL&&isBreath)
@@ -667,21 +675,26 @@ void Model::UpdataSetting(Csm::csmBool _randomMotion,
 			      Csm::csmFloat32 _delayTime,
 			      Csm::csmBool _isBreath,
 			      Csm::csmBool _isEyeBlink,
-			      Csm::csmFloat32 _mouseX,
-			      Csm::csmFloat32 _mouseY,
-			      Csm::csmBool _lButton,
-			      Csm::csmBool _rButton,
-			      Csm::csmBool _isTrack)
+			      Csm::csmBool _isTrack,
+			      Csm::csmBool _isMouseHorizontalFlip,
+			      Csm::csmBool _IsMouseVerticalFlip)
 {
 	randomMotion = _randomMotion;
 	delayTime = _delayTime;
 	isBreath = _isBreath;
 	isEyeBlink = _isEyeBlink;
+	isTrack = _isTrack;
+	isMouseHorizontalFlip =_isMouseHorizontalFlip;
+	IsMouseVerticalFlip = _IsMouseVerticalFlip;
+}
+
+void Model::UpdateMouseState(Csm::csmFloat32 _mouseX, Csm::csmFloat32 _mouseY,
+			     Csm::csmBool _lButton, Csm::csmBool _rButton)
+{
 	mouseX = _mouseX;
 	mouseY = _mouseY;
 	lButton = _lButton;
 	rButton = _rButton;
-	isTrack = _isTrack;
 }
 
 csmFloat32 Model::GetDeltaTime()

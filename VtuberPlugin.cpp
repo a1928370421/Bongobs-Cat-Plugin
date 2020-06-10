@@ -6,25 +6,11 @@
 #include "VtuberFrameWork.hpp"
 #include <obs-module.h>
 
-#define V_MODELPATH "ModelsPath"
-#define V_WIDTH "Width"
-#define V_HEIGHT "Height"
-#define V_SCALE "Scale"
-#define V_X = "X"
-#define V_Y = "Y"
-#define V_SPEED = "Speed"
-#define V_RANDOMMOTION = "RandomMotion"
-#define V_Track = "Track"
-#define V_Mode = "Mode"
-#define V_LIVE2D = "Live2"
-
 namespace{
 	struct Vtuber_data {
 		obs_source_t *source;
 		uint16_t modelId;
 	};
-
-	static int ModelCount = 0;
 
 	}
 
@@ -53,22 +39,17 @@ void * VtuberPlugin::VtuberPlugin::VtuberCreate(obs_data_t *settings,
 	bool track = obs_data_get_bool(settings, "track");
 	const char *mode = obs_data_get_string(settings, "mode");
 	bool live2D = obs_data_get_bool(settings, "live2d");
+	bool relative_mouse = obs_data_get_bool(settings, "relative_mouse");
+	bool mouse_horizontal_flip =obs_data_get_bool(settings, "mouse_horizontal_flip");
+	bool mouse_vertical_flip =obs_data_get_bool(settings, "mouse_vertical_flip");
+	bool mask = obs_data_get_bool(settings, "mask");
 
-	//setting body
-	VtuberFrameWork::UpData(0, x, y, width, height, scale, delayTime,
-				random_motion, breath, eyeblink, NULL, track,
-				mode, live2D);
-	//setting right hand
-	VtuberFrameWork::UpData(1, -0.27, 0.30, width, height, 4.0, delayTime,
-				random_motion, breath, eyeblink, NULL, track,
-				mode, live2D);
+	VtuberFrameWork::InitVtuber(vtb->modelId);
 
-	VtuberFrameWork::InitVtuber(0);
-
-	VtuberFrameWork::InitVtuber(1);
-
-	ModelCount++;
-
+	VtuberFrameWork::UpData(vtb->modelId, x, y, width, height, scale,
+				delayTime, random_motion, breath, eyeblink,
+				NULL, track, mode, live2D, relative_mouse,
+				mouse_horizontal_flip, mouse_vertical_flip,mask);
 	return vtb;
 }
 
@@ -77,8 +58,7 @@ void VtuberPlugin::VtuberPlugin::VtuberDestroy(void *data)
 	
 	Vtuber_data *spv = (Vtuber_data *)data;
 
-	VtuberFrameWork::UinitVtuber(ModelCount);
-	ModelCount--;
+	VtuberFrameWork::UinitVtuber(0);
 
 	delete spv;
 }
@@ -122,6 +102,19 @@ uint32_t VtuberPlugin::VtuberPlugin::VtuberHeight(void *data)
 	return VtuberFrameWork::GetHeight(vtb->modelId);
 }
 
+static void fill_vtuber_model_list(obs_property_t *p, void *data)
+{
+	Vtuber_data *vtb = (Vtuber_data *)data;
+	int _size;
+	const char **_modeNames= VtuberFrameWork::GetModeDefine(_size);
+
+	for (int index = 0; index < _size; index++) {
+		obs_property_list_add_string(p, _modeNames[index],_modeNames[index]);
+	}
+	
+
+}
+
 obs_properties_t * VtuberPlugin::VtuberPlugin::VtuberGetProperties(void *data)
 {
 
@@ -131,9 +124,7 @@ obs_properties_t * VtuberPlugin::VtuberPlugin::VtuberGetProperties(void *data)
 	obs_properties_set_param(ppts, vtb, NULL);
 
 	obs_property_t *p;
-	int width, height;
-	width = VtuberFrameWork::GetWidth(vtb->modelId);
-	height = VtuberFrameWork::GetHeight(vtb->modelId);
+
 
         //obs_properties_add_path(ppts, "models_path",obs_module_text("ModelsPath"), OBS_PATH_FILE,"*.model3.json", "Resources/");
 
@@ -141,23 +132,25 @@ obs_properties_t * VtuberPlugin::VtuberPlugin::VtuberGetProperties(void *data)
 	p = obs_properties_add_list(ppts, "mode", obs_module_text("Mode"),
 				    OBS_COMBO_TYPE_LIST,
 				    OBS_COMBO_FORMAT_STRING);
-
-	obs_property_list_add_string(p,"Standard","standard/");
-	obs_property_list_add_string(p, "KeyBoard", "keyboard/");
+	fill_vtuber_model_list(p, data);
 
 	//obs_property_set_modified_callback(p, vtuber_model_callback);
-	
 	//obs_properties_add_int(ppts, "width", obs_module_text("Width"), 32, 1900, 32);
 	//obs_properties_add_int(ppts, "height", obs_module_text("Height"), 32, 1050, 32);
 	//obs_properties_add_float_slider(ppts,"scale",obs_module_text("Scale"),0.1,10.0,0.1);
 	//obs_properties_add_float_slider(ppts, "x", obs_module_text("X"), -3.0, 3.0, 0.1);
 	//obs_properties_add_float_slider(ppts, "y", obs_module_text("Y"), -3.0, 3.0, 0.1);
-	obs_properties_add_float_slider(ppts, "delay", obs_module_text("Speed"), 0.0, 10.0, 0.1);
-	//obs_properties_add_bool(ppts,"random_motion",obs_module_text("RandomMotion"));
+	obs_properties_add_bool(ppts, "relative_mouse", obs_module_text("Relative Mouse Movement"));
+	obs_properties_add_bool(ppts, "mouse_horizontal_flip", obs_module_text("Mouse Horizontal Flip"));
+	obs_properties_add_bool(ppts, "mouse_vertical_flip", obs_module_text("Mouse Vertical Flip"));
+	obs_properties_add_bool(ppts, "mask", obs_module_text("Use Mask"));
 	obs_properties_add_bool(ppts, "live2d", obs_module_text("Live2D"));
+	obs_properties_add_float_slider(ppts, "delay", obs_module_text("Speed"), 0.0, 10.0, 0.1);
+	obs_properties_add_bool(ppts,"random_motion",obs_module_text("RandomMotion"));
 	obs_properties_add_bool(ppts, "breath", obs_module_text("Breath"));
 	obs_properties_add_bool(ppts, "eyeblink", obs_module_text("EyeBlink"));
-	obs_properties_add_bool(ppts, "track", obs_module_text("Track"));
+	obs_properties_add_bool(ppts, "track", obs_module_text("Mouse Tracktion"));
+	
 
 	return ppts;
 }
@@ -179,21 +172,28 @@ void VtuberPlugin::VtuberPlugin::Vtuber_update(
 	bool track = obs_data_get_bool(settings, "track");
 	const char *mode = obs_data_get_string(settings, "mode");
 	bool live2D = obs_data_get_bool(settings, "live2d");
+	bool relative_mouse = obs_data_get_bool(settings, "relative_mouse");
+	bool mouse_horizontal_flip =obs_data_get_bool(settings, "mouse_horizontal_flip");
+	bool mouse_vertical_flip =obs_data_get_bool(settings, "mouse_vertical_flip");
+	bool mask = obs_data_get_bool(settings, "mask");
+
 	const char *vtb_str = NULL; //obs_data_get_string(settings, "models_path");
 
 	VtuberFrameWork::UpData(vtb->modelId, x, y, width, height, vscale,
 				delayTime, random_motion, breath, eyeblink,
-				vtb_str, track, mode, live2D);
+				vtb_str, track, mode, live2D, relative_mouse,
+				mouse_horizontal_flip, mouse_vertical_flip,
+				mask);
 }
 
 void VtuberPlugin::VtuberPlugin::Vtuber_defaults(
 	obs_data_t *settings)
 {
-	obs_data_set_default_int(settings, "width", 1200);
-	obs_data_set_default_int(settings, "height", 780);
+	obs_data_set_default_int(settings, "width", 1280);
+	obs_data_set_default_int(settings, "height", 768);
 	obs_data_set_default_double(settings, "x", 0);
-	obs_data_set_default_double(settings, "y", -0.1);
-	obs_data_set_default_double(settings, "scale", 1.8);
+	obs_data_set_default_double(settings, "y", 0.02);
+	obs_data_set_default_double(settings, "scale", 1.83);
 	obs_data_set_default_double(settings, "delaytime", 1.0);
 	obs_data_set_default_bool(settings, "random_motion", true);
 	obs_data_set_default_bool(settings, "breath",true);
@@ -201,4 +201,8 @@ void VtuberPlugin::VtuberPlugin::Vtuber_defaults(
 	obs_data_set_default_bool(settings, "track", true);
 	obs_data_set_default_string(settings, "Mode", "standard");
 	obs_data_set_default_bool(settings, "live2d", true);
+	obs_data_set_default_bool(settings, "relative_mouse", false);
+	obs_data_set_default_bool(settings, "mouse_horizontal_flip",true);
+	obs_data_set_default_bool(settings, "mouse_vertical_flip",true);
+	obs_data_set_default_bool(settings, "mask", false);
 }

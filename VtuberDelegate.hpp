@@ -28,17 +28,6 @@ class VtuberDelegate {
 		int windowWidth;
 		int windowHeight; 				
 		double Scale;
-
-		//model setting
-		bool randomMotion;
-		bool isBreath;
-		bool isEyeBlink;
-		bool isTrack;
-		double delayTime;
-
-		double angleX;
-		double angleY;
-		double angleZ;
 	};
 
 public:
@@ -88,24 +77,19 @@ public:
 
 
     void updataModelSetting(bool _randomMotion, double _delayTime, bool _breath,
-			    bool _eyeBlink,bool _track,int id);
+			    bool _eyeBlink, bool _track,
+			    bool _isMouseHorizontalFlip,bool _isMouseVerticalFlip,
+		            int id);
 
-    void ChangeMode(const char *_mode, bool _live2D, int id);
+    const char ** GetModeDefine(int &size);
 
-    bool GetRandomMotion(int id) const;
+    void ChangeMode(const char *_mode, bool _live2D,bool _isUseMask, int id);
 
-    double GetDelayTime(int id) const;
-
-    bool GetBreath(int id) const;
-
-    bool GetEyeBlink(int id) const;
-
-    bool GetTrack(int id) const;
+    void ChangeMouseMovement(bool _mouse);
 
     GLuint CreateShader();
 
     bool CheckShader(GLuint shaderId);
-
 private:
     /**
     * @brief   コンストラクタ
@@ -137,5 +121,3 @@ private:
 
     RenderInfo _renderInfo[MAXMODELCOUNT];
     };
- 
-

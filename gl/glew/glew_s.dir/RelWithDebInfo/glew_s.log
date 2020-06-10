@@ -1,0 +1,3 @@
+﻿  Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt
+  glew.c
+  glew_s.vcxproj -> E:\obs\build\lib\RelWithDebInfo\libglew32.lib

@@ -12,6 +12,8 @@
 #include "Live2DManager.hpp"
 #include "LAppTextureManager.hpp"
 #include "Hook.hpp"
+#include "InfoReader.hpp"
+#include "EventManager.hpp"
 
 using namespace Csm;
 using namespace std;
@@ -57,29 +59,39 @@ void VtuberDelegate::ReleaseResource(int id) {
 	_renderInfo[id].isLoadResource = false;
 	_view->Release(id);
 }
-
+void ErrorCallback(int, const char *err_str)
+{
+	string a = err_str;
+	string b = a;
+}
 
 bool VtuberDelegate::Initialize(int id)
-{	
+{
+   
     //Gl Init
     if (isFirst) {
-	 
-	    _hook->Strat();
+	   
 	    isFirst = false;
+	    glfwTerminate();
+	    glfwSetErrorCallback(ErrorCallback);
 	    // GLFWの初期化
 	    if (glfwInit() == GL_FALSE)
 	    {
-		return GL_FALSE;
+		//return GL_FALSE;
 	    }
-    
+	    
 	    // Windowの生成_
 	    glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-	    _window = glfwCreateWindow(RenderTargetWidth, RenderTargetHeight, "vtuber", NULL,NULL);
+	    glfwWindowHint(GLFW_SAMPLES, 16);
+	    _window = glfwCreateWindow(RenderTargetWidth, RenderTargetHeight, "bongo cat", NULL,NULL);
 	    if (_window == NULL)
 	    {
 		glfwTerminate();
 		return GL_FALSE;
 	    }
+
+	    if (glfwRawMouseMotionSupported())
+		    glfwSetInputMode(_window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
 	    glfwMakeContextCurrent(_window);
 
@@ -88,13 +100,17 @@ bool VtuberDelegate::Initialize(int id)
 		    glfwTerminate();
 		    return GL_FALSE;
 	    }
+	    _hook = new Hook();
+	    _hook->Strat();
+    
     }
-
+    
+    
     // Cubism SDK の初期化
     InitializeCubism();
 
     _view->InitializeSpirite(id);
-
+    _view->InitializeModel(id);
 
     return GL_TRUE;
 }
@@ -104,7 +120,6 @@ void VtuberDelegate::Release()
         //glfwDestroyWindow(_window);
 
         //glfwTerminate();
-	_hook->Stop();
 
         delete _textureManager;
 
@@ -115,13 +130,12 @@ void VtuberDelegate::Release()
 	CubismFramework::CleanUp();   
 
         CubismFramework::Dispose();
-
-        ReleaseInstance();
 }
 
 void VtuberDelegate::Reader(int id,char *buffer,int bufferWidth, int bufferheight)
 {
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_MULTISAMPLE);
+	glfwMakeContextCurrent(_window);
 	glClearColor(0.0, 0.0, 0.0,0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//描画更新
@@ -129,7 +143,6 @@ void VtuberDelegate::Reader(int id,char *buffer,int bufferWidth, int bufferheigh
 
 	//写入缓冲
 	glReadPixels(0, 0, bufferWidth, bufferheight, GL_RGBA, GL_UNSIGNED_BYTE,buffer);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 }
 
@@ -144,63 +157,43 @@ void VtuberDelegate::UpdataViewWindow(double _x, double _y, int _width,
 }
 
 void VtuberDelegate::updataModelSetting(bool _randomMotion, double _delayTime,
-					bool _breath, bool _eyeBlink,bool _istrack,int id)
+					bool _breath, bool _eyeBlink,bool _istrack,
+					bool _isMouseHorizontalFlip,bool _isMouseVerticalFlip,
+					int id)
 {
-	_renderInfo[id].randomMotion = _randomMotion;
-	_renderInfo[id].delayTime = _delayTime;
-	_renderInfo[id].isBreath = _breath;
-	_renderInfo[id].isEyeBlink = _eyeBlink;
-	_renderInfo[id].isTrack = _istrack;
+	Live2DManager::GetInstance()->UpdateModelSetting(
+		_randomMotion, _delayTime, _breath, _eyeBlink, _istrack,
+		_isMouseHorizontalFlip, _isMouseVerticalFlip);
 }
 
-void VtuberDelegate::ChangeMode(const char *_mode,bool _live2d, int id)
+const char **VtuberDelegate::GetModeDefine(int &size) {
+	InfoReader *_infoReader = _view->GetInfoReader();
+
+	size = _infoReader->ModeCount;
+	return (const char**)_infoReader->ModePath;
+}
+
+void VtuberDelegate::ChangeMode(const char *_mode,bool _live2d,bool _isUseMask, int id)
 {
-	for (int i = 0; i < ModeCount; i++) {
-		const char *a = ModeDefine[i];
-		if (strcmp(_mode, ModeDefine[i])==0) {
+	InfoReader *_infoReader = _view->GetInfoReader();
+	for (int i = 0; i < _infoReader->ModeCount; i++) {
+		const char *a = _infoReader->ModePath[i];
+		if (strcmp(_mode, _infoReader->ModePath[i]) == 0) {
 			_view->setMod(i);
 			
 		}			
 	}
-	_view->setLive2D(_live2d);	
+	_view->Update(_live2d,_isUseMask);
 }
 
-
-bool VtuberDelegate::GetRandomMotion(int _id) const
-{
-	return _renderInfo[_id].randomMotion;
+void VtuberDelegate::ChangeMouseMovement(bool _mouse) {
+	Live2DManager::GetInstance()->ChangeMouseMovement(_mouse);
 }
 
-double VtuberDelegate::GetDelayTime(int _id) const
-{
-	return _renderInfo[_id].delayTime;
-}
-
-bool VtuberDelegate::GetBreath(int id) const
-{
-	return _renderInfo[id].isBreath;
-}
-
-bool VtuberDelegate::GetEyeBlink(int id) const
-{
-	return _renderInfo[id].isEyeBlink;
-}
-
-bool VtuberDelegate::GetTrack(int id) const
-{
-	return _renderInfo[id].isTrack;
-}
 
 void VtuberDelegate::ChangeModel(const char *ModelName, int id)
 {
-	if (ModelName == NULL) {
-		_renderInfo[id].isLoadResource = false;
-		return;
-	}		
-	if (Live2DManager::GetInstance()->ChangeScene(ModelName, id))
-		_renderInfo[id].isLoadResource = true;
-	else 
-		_renderInfo[id].isLoadResource = false;		
+	
 }
 
 VtuberDelegate::VtuberDelegate()
@@ -210,7 +203,6 @@ VtuberDelegate::VtuberDelegate()
 {
     _view = new View();
     _textureManager = new LAppTextureManager();
-    _hook = new Hook();
 }
 
 VtuberDelegate::~VtuberDelegate() {}
@@ -223,13 +215,6 @@ void VtuberDelegate::InitializeCubism()
 
     //Initialize cubism
     CubismFramework::Initialize();
-
-    string resourcesFilePath = std::string(ResourcesPath);
-    string catModelFilePath = resourcesFilePath+CatModelPath;
-    string rightHandModelFilePath = resourcesFilePath + RightHandModelPath;
-    //load model
-    ChangeModel(catModelFilePath.c_str(), 0);
-    ChangeModel(rightHandModelFilePath.c_str(), 1);
 
     Live2DManager::GetInstance();
 

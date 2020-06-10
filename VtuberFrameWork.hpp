@@ -15,8 +15,12 @@ public:
 
 	static void UpData(int id,double _x, double _y, int width, int height,
 			   double scale,double delayTime, bool randomMotion,
-		bool breath,bool eyeBlink, const char *ModelName,bool track,
-		const char *modelPath,bool _live2d);
+			   bool breath,bool eyeBlink, const char *ModelName,
+			   bool track, const char *modelPath, bool _live2d,
+			   bool relative_mouse, bool _isMouseHorizontalFlip,
+			   bool _isMouseVerticalFlip, bool _isUsemask);
+
+	static const char **GetModeDefine(int &_size);
 
 	static int GetWidth(int id);
 

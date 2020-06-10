@@ -1,0 +1,4 @@
+﻿  Building Custom Rule E:/obs/obs-studio-master/plugins/bongobs-cat/thirdParty/glew/build/cmake/CMakeLists.txt
+  glew.c
+    正在创建库 E:/obs/build/lib/RelWithDebInfo/glew32.lib 和对象 E:/obs/build/lib/RelWithDebInfo/glew32.exp
+  glew.vcxproj -> E:\obs\build\bin\RelWithDebInfo\glew32.dll

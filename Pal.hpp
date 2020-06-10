@@ -15,9 +15,11 @@ public:
 
     static void PrintMessage(const Csm::csmChar* message);
 
-    static bool IsFileExist(const char *csDir);
+    static bool IsFileExist(const Csm::csmChar *csDir);
 
-    static int GetAllDirName(const char *csDir,char **Files);
+    static int GetAllDirName(const Csm::csmChar *csDir, Csm::csmChar **Files);
+
+    static const char *GetModelName(const char *filePath);
 
     static void GetDesktopResolution(int &horizontal, int &vertical);
 };

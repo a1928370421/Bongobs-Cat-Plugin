@@ -43,6 +43,7 @@ void Sprite::Render(int i) const
 	//mix texture
 	glEnable(GL_BLEND);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
+
 	glEnable(GL_TEXTURE_2D);
 	const GLfloat uvVertex[] = {
 		1.0f, 0.0f,

@@ -9,22 +9,35 @@
 #include "Model.hpp"
 #include "Sprite.hpp"
 #include "EventManager.hpp"
+#include "InfoReader.hpp"
 
 using namespace std;
 using namespace Define;
 
-View::View() : _programId(0), dataCount(0), _mod(0), isUseLive2d(true)
+View::View() : _programId(0), _mod(0), isUseLive2d(true), isUseMask(false)
 {
     _clearColor[0] = 1.0f;
     _clearColor[1] = 1.0f;
     _clearColor[2] = 1.0f;
     _clearColor[3] = 0.0f;
+
+    eventManager = new EventManager();
+    
+
+    const string resourcesPath = ResourcesPath;
+    const string modePath = resourcesPath + ModePath;
+    const string maskPath = resourcesPath + MaskPath;
+
+    _infoReader = new InfoReader();
+    _infoReader->InitFaceFromConfig(maskPath.c_str());
+    _infoReader->InitFromConfig(modePath.c_str());
 }
 
 View::~View()
 {
-    _renderBuffer.DestroyOffscreenFrame();
+	_renderBuffer.DestroyOffscreenFrame();
 	delete eventManager;
+	delete _infoReader;
 }
 
 void View::Initialize(int id)
@@ -68,24 +81,18 @@ void View::Initialize(int id)
         ViewLogicalMaxBottom,
         ViewLogicalMaxTop
     );
-
-    dataCount++;
-
-	eventManager = new EventManager();
 }
 
-void View::Release(int id) {
-	delete _viewData[id]._viewMatrix;
-	delete _viewData[id]._deviceToScreen;
+void View::Release(int id)
+{
+	if (_viewData[id]._viewMatrix)
+		delete _viewData[id]._viewMatrix;
+	if (_viewData[id]._deviceToScreen)
+		delete _viewData[id]._deviceToScreen;
 
-	/*
-	delete _viewData[id]._back;
-	delete _viewData[id]._leftHandUp;	
-	for (int i = 0; i < 15; i++) {
-		delete _viewData[id]._hands[i];
-		delete _viewData[id]._Keys[i];
-	}*/
-	dataCount--;
+	for (int i = 0; i < _viewData[id]._faceCount; i++) {
+		delete _viewData[id]._face[i];
+	}
 }
 
 void View::UpdataViewData(int id) {
@@ -97,95 +104,196 @@ void View::UpdataViewData(int id) {
     x = VtuberDelegate::GetInstance()->GetX(id);
     y = VtuberDelegate::GetInstance()->GetY(id);
     scale = VtuberDelegate::GetInstance()->getScale(id);
-
-    _viewData[id]._viewMatrix->Scale(0.65*scale, scale);
     double _x = -static_cast<float>(RenderTargetWidth - width) /static_cast<float>(RenderTargetWidth);
     double _y = -static_cast<float>(RenderTargetHeight-height) /static_cast<float>(RenderTargetHeight);
-    _viewData[id]._viewMatrix->Translate(x + _x, y+_y);
+    int a = id;
+    if (_viewData[id]._viewMatrix) {
+	_viewData[id]._viewMatrix->Scale(0.615*scale, scale*1.1);
+	_viewData[id]._viewMatrix->Translate(x + _x, y+_y);
+    } else {
+	    Initialize(id);
+	    _viewData[id]._viewMatrix->Scale(0.615 * scale, scale * 1.1);
+	    _viewData[id]._viewMatrix->Translate(x + _x, y + _y);
+    }
+
+    //SwitchRenderingTarget(SelectTarget_ViewFrameBuffer,id);
 }
 
 int View::TranslateKey(int key, int id)
 {
-	for (int i = 0; i < KeyAmount; i++) {
-		for (int j = 0; j < _viewData[id]._mode[_mod]._keysCount; j++) {
-			if (_mod == 0) {
-				if (strcmp(Mod1KeyUse[j], KeyDefine[key]) == 0)
-					return j;
-			} else {
-				if (strcmp(Mod2KeyUse[j],KeyDefine[key]) == 0)
-					return j;
-			}
-		}
+	for (int j = 0; j < _viewData[id]._mode[_mod]._keysCount; j++) {
+		if (strcmp(_infoReader->_modeInfo[_mod].KeyUse[j], KeyDefine[key]) == 0)
+			return j;
 	}
 	return -1;
 }
 
-void View::Render(int id)
+int View::TranslateKey2(int key, int id)
 {
-	Live2DManager* Live2DManager = Live2DManager::GetInstance();
-
-	UpdataViewData(id);
-
-	//render cat
-	if (isUseLive2d) {
-		Live2DManager->OnUpdate(id);
-		_viewData[id]._mode[_mod]._back->Render(id);
-	} else {
-		_viewData[id]._mode[_mod]._catback->Render(id);
+	for (int j = 0; j < _viewData[id]._faceCount; j++) {
+		if (strcmp(_infoReader->_faceInfo[0].HotKey[j], KeyDefine[key]) == 0)
+			return j;
 	}
+	return -1;
+}
 
-	//render key
+void View::RenderBackgroud(int id)
+{
+	
+	//render backgroud
+	if (isUseLive2d && _viewData[id]._mode[_mod]._haseModel) {
+
+		if (_viewData[id]._mode[_mod]._back)
+			_viewData[id]._mode[_mod]._back->Render(id);
+
+	} else {
+		if (_viewData[id]._mode[_mod]._catback)
+			_viewData[id]._mode[_mod]._catback->Render(id);
+	}
+}
+
+void View::RenderCat(int id) {
+	Live2DManager *Live2DManager = Live2DManager::GetInstance();
+	if (isUseLive2d && _viewData[id]._mode[_mod]._haseModel) {
+		Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._modelId);
+	}
+}
+
+void View::RenderKeys(int id)
+{
+
 	for (int i = 0; i < KeyAmount; i++) {
 		if (eventManager->GetKeySignal(i)) {
 			int key = TranslateKey(i, id);
 			if (key != -1) {
-				_viewData[id]._mode[_mod]._keys[key]->Render(id);
-			}	
-		}
-	}
-
-	//render left hand
-	bool isUp = true;
-	for (int i = 0; i < KeyAmount; i++) {
-		if (eventManager->GetKeySignal(i)) {
-			int key = TranslateKey(i, id);
-			if (key != -1 && key < _viewData[id]._mode[_mod]._leftHandsCount) {
-				_viewData[id]._mode[_mod]._leftHands[key]->Render(id);
-				isUp = false;
-				break; //cat only have one right hand
-			}	
-		}			
-	}
-	if (isUp)
-		_viewData[id]._mode[_mod]._leftHandUp->Render(id);
-
-	//render right hand
-	if (_viewData[id]._mode[_mod].isUseRightHandModel) {
-		UpdataViewData(1);
-		Live2DManager->OnUpdate(1);
-	} else {
-		bool isUp = true;
-		for (int i = 0; i < KeyAmount; i++) {
-			if (eventManager->GetKeySignal(i)) {
-				int key = TranslateKey(i, id);
-				key -= _viewData[id]._mode[_mod]._leftHandsCount;
-				if (key > -1) {
-					_viewData[id]._mode[_mod]._rightHands[key]->Render(id);
-					isUp = false;
-					break; //cat only have one right hand
-				}				
+				if (_viewData[id]._mode[_mod]._keys[key])
+					_viewData[id]._mode[_mod]._keys[key]->Render(id);
 			}
 		}
-		if (isUp)
+	}
+}
+
+bool View::RenderLeftHands(int id) {
+
+	Live2DManager *Live2DManager = Live2DManager::GetInstance();
+	bool isUp = true;
+	if (_viewData[id]._mode[_mod]._leftHandsCount > 0) {	
+		for (int i = 0; i < KeyAmount; i++) {
+			if (eventManager->GetKeySignal(i)) {
+
+				int key = TranslateKey(i, id);
+				if (key != -1 && key < _viewData[id]._mode[_mod]._leftHandsCount) {
+
+					if (_viewData[id]._mode[_mod] ._leftHands[key])
+						_viewData[id]._mode[_mod]._leftHands[key]->Render(id);
+
+					isUp = false;
+					break; //cat only have one right hand
+				}
+			}
+		}
+
+	} else if (_viewData[id]._mode[_mod]._hasLeftHandModel) {
+		if (!isUseLive2d) {	
+			Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._leftHandModelId);
+		}
+		isUp = false;		
+	} else if (isUseLive2d)
+		isUp = false;
+
+	return isUp;
+}
+
+bool View::RenderRightHands(int id) {
+
+	Live2DManager *Live2DManager = Live2DManager::GetInstance();
+	bool isUp = true;
+	if (_viewData[id]._mode[_mod]._rightHandsCount > 0) {
+		
+
+		for (int i = 0; i < KeyAmount; i++) {
+			if (eventManager->GetKeySignal(i)) {
+				int key = TranslateKey(i, id) - _viewData[id]._mode[_mod]._leftHandsCount;
+
+				if (key >= 0 && key < _viewData[id]._mode[_mod]._rightHandsCount) {
+
+					if (_viewData[id]._mode[_mod]._rightHands[key])
+						_viewData[id]._mode[_mod]._rightHands[key]->Render(id);
+					isUp = false;
+					break; //cat only have one right hand
+				}
+			}
+		}			
+	} else if (_viewData[id]._mode[_mod]._hasRightHandModel) {	
+		if (!isUseLive2d) {	
+			Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._rightHandModelId);
+		}
+		isUp = false;	
+	} else if (isUseLive2d)
+		isUp = false;
+
+	return isUp;
+}
+
+void View::RenderUphands(bool leftup, bool righttup, int id) {
+	if (leftup) {
+		if (_viewData[id]._mode[_mod]._leftHandUp)
+			_viewData[id]._mode[_mod]._leftHandUp->Render(id);
+	}
+	if (righttup) {
+		if (_viewData[id]._mode[_mod]._rightHandUp)
 			_viewData[id]._mode[_mod]._rightHandUp->Render(id);
 	}
 
+}
+
+void View::ReanderMask(int id) {
+	for (int i = 0; i < KeyAmount; i++) {
+		if (eventManager->GetKeySignal(i)) {
+			int key = TranslateKey2(i, id);
+			if (key >= 0 &&key < _viewData[id]._faceCount) {
+				_viewData[id]._curentface = key;
+				break; 
+			}
+		}
+	}
+	if (isUseMask&&_viewData[id]._face[_viewData[id]._curentface])
+		  _viewData[id]._face[_viewData[id]._curentface]->Render(id);
+}
+
+void View::ChangeMode(int mod, int id) {}
+
+void View::Render(int id)
+{
 	
+	UpdataViewData(id);
+
+	//render backgroud & cat model
+	RenderBackgroud(id);
+
+	//render key
+	RenderKeys(id);
+
+	RenderCat(id);
+
+	//render left hand & left hand model
+	bool leftup = RenderLeftHands(id);
+
+	//render right hand & right hand model
+	bool righttup = RenderRightHands(id);
+
+	//render mask
+	ReanderMask(id);
+
+	//render Uphand
+	RenderUphands(leftup, righttup,id);
+
 }
 
 void View::InitializeSpirite(int id) {
 
 	_programId = VtuberDelegate::GetInstance()->CreateShader();
+	Live2DManager *Live2DManager = Live2DManager::GetInstance();
 
 	int width, height;
 	width = VtuberDelegate::GetInstance()->getBufferWidth(id);
@@ -193,142 +301,218 @@ void View::InitializeSpirite(int id) {
 	LAppTextureManager *textureManager =VtuberDelegate::GetInstance()->GetTextureManager();
 
 	const string resourcesPath = ResourcesPath;
+	const string modePath = resourcesPath+ModePath;
+	const string maskPath = resourcesPath + MaskPath;
 
-	const string backImageName = BackImageName;
-	const string catBackImageName = CatBackImageName;
-	const string leftHandImagePath = LeftHandImagePath;
-	const string leftHandUpImageName = LeftHandUpImageName;
-	const string rightHandImagePath = RightHandImagePath;
-	const string rightHandUpImageName = RightHandUpImageName;
-	const string keyboardimagepath = KeyboardImagePath;
+	_viewData[id]._faceCount = _infoReader->_faceInfo->Facecount;
+	_viewData[id]._curentface = 0;
+	for (int _facecount = 0; _facecount < _infoReader->_faceInfo->Facecount; _facecount++) {
 
-	for (int _modelCount = 0; _modelCount < ModeCount; _modelCount++) {
+			string imageName =_infoReader->_faceInfo->FaceImages[_facecount];
+			LAppTextureManager::TextureInfo *FaceTexture =
+				textureManager->CreateTextureFromPngFile(
+					maskPath + imageName);
+			float x = width * 0.5f;
+			float y = height * 0.5f;
+			float fWidth = static_cast<float>(width * 0.5);
+			float fHeight = static_cast<float>(height * 0.5);
+			_viewData[id]._face[_facecount] =new Sprite(x, y, fWidth, fHeight,FaceTexture->id, _programId);
+	}
 
-		string targetPath = resourcesPath + ModeImagePath+ModeDefine[_modelCount];
+	
+	_viewData[id]._modecount = _infoReader->ModeCount;
+	for (int _modelCount = 0; _modelCount < _infoReader->ModeCount; _modelCount++) {
+		MODE_INFO *_modeinfo = _infoReader->_modeInfo;
+
+		string targetPath =modePath + _infoReader->ModePath[_modelCount] + "/";
 
 		/***************************** backgroud ***************************************/
-		LAppTextureManager::TextureInfo *backgroundTexture =
-			textureManager->CreateTextureFromPngFile(targetPath +backImageName);
-		float x = width*0.5;
-		float y = height * 0.45;
-		float fWidth = static_cast<float>(backgroundTexture->width);
-		float fHeight = static_cast<float>(backgroundTexture->height);
-		_viewData[id]._mode[_modelCount]._back =
-			new Sprite(x, y, fWidth, fHeight, backgroundTexture->id, _programId);
+		if (strcmp(_modeinfo[_modelCount].BackgroundImageName, "") !=
+		    0) {
+			LAppTextureManager::TextureInfo *backgroundTexture =
+				textureManager->CreateTextureFromPngFile(
+					targetPath +
+					_modeinfo[_modelCount]
+						.BackgroundImageName);
+			float x = width * 0.5;
+			float y = height * 0.5;
+			float fWidth = static_cast<float>(width * 0.5);
+			float fHeight = static_cast<float>(height * 0.5);
+			_viewData[id]._mode[_modelCount]._back =
+				new Sprite(x, y, fWidth, fHeight,
+					   backgroundTexture->id, _programId);
+		} else
+			_viewData[id]._mode[_modelCount]._back = NULL;
 
-
-		LAppTextureManager::TextureInfo *catbackgroundTexture =
-			textureManager->CreateTextureFromPngFile(targetPath + catBackImageName);
-		x = width * 0.5;
-		y = height * 0.45;
-		fWidth = static_cast<float>(catbackgroundTexture->width);
-		fHeight =static_cast<float>(catbackgroundTexture->height);
-		_viewData[id]._mode[_modelCount]._catback =
-			new Sprite(x, y, fWidth, fHeight,catbackgroundTexture->id,_programId);
-
-		/***************************** lefthand ***************************************/
-		//load left hand up
-		LAppTextureManager::TextureInfo *LeftHandUpTexture =
+		if (strcmp(_modeinfo[_modelCount].CatBackgroundImageName, "") !=0) {
+			LAppTextureManager::TextureInfo *catbackgroundTexture =
 			textureManager->CreateTextureFromPngFile(
-				targetPath + leftHandImagePath +
-				leftHandUpImageName);
-		x = width * 0.5f;
-		y = height * 0.45f;
-		fWidth = static_cast<float>(LeftHandUpTexture->width);
-		fHeight = static_cast<float>(LeftHandUpTexture->height);
-		_viewData[id]._mode[_modelCount]._leftHandUp =
-			new Sprite(x, y, fWidth, fHeight, LeftHandUpTexture->id,_programId);
-
-		//load left hands
-		_viewData[id]._mode[_modelCount]._leftHandsCount =ModelLeftHandCount[_modelCount];
-		for (int i = 0; i < ModelLeftHandCount[_modelCount]; i++) {
-			string imageName = LeftHandImageName[i];
-			LAppTextureManager::TextureInfo *HandsTexture =
-				textureManager->CreateTextureFromPngFile(
-					targetPath +
-					leftHandImagePath +
-					imageName);
-			x = width * 0.5f;
-			y = height * 0.5f;
-			fWidth = static_cast<float>(HandsTexture->width);
-			fHeight = static_cast<float>(HandsTexture->height);
-			_viewData[id]._mode[_modelCount]._leftHands[i]=
-				new Sprite(x, y, fWidth, fHeight,HandsTexture->id, _programId);
-		}
-
-		
-		/***************************** righthands ***************************************/
-		_viewData[id]._mode[_modelCount].isUseRightHandModel = ModelRightHandModel[_modelCount];		
-		_viewData[id]._mode[_modelCount]._rightHandsCount = ModelRightHandCount[_modelCount];
-		if (!ModelRightHandModel[_modelCount]) {
-			//load righthandsup
-			LAppTextureManager::TextureInfo *RightHandUpTexture =
-				textureManager->CreateTextureFromPngFile(
-					targetPath +
-					rightHandImagePath +
-					rightHandUpImageName);
-			x = width * 0.5f;
-			y = height * 0.45f;
-			fWidth = static_cast<float>(RightHandUpTexture->width);
-			fHeight =static_cast<float>(RightHandUpTexture->height);
-			_viewData[id]._mode[_modelCount]._rightHandUp =
-				new Sprite(x, y, fWidth, fHeight,RightHandUpTexture->id, _programId);
-
-			//Load right hands
-			for (int i = 0; i < ModelRightHandCount[_modelCount];
-			     i++) {
-				string imageName = RightHandImageName[i];
-				LAppTextureManager::TextureInfo *HandsTexture =
-					textureManager->CreateTextureFromPngFile(
-						targetPath + rightHandImagePath +imageName);
-				x = width * 0.5f;
-				y = height * 0.45f;
-				fWidth =static_cast<float>(HandsTexture->width);
-				fHeight = static_cast<float>(HandsTexture->height);
-				_viewData[id]._mode[_modelCount]._rightHands[i] =
-					new Sprite(x, y, fWidth, fHeight,
-						   HandsTexture->id,
-						   _programId);
-			}
-
-		}
+				targetPath +
+				_modeinfo[_modelCount].CatBackgroundImageName);
+			float x = width * 0.5;
+			float y = height * 0.5;
+			float fWidth = static_cast<float>(width * 0.5);
+			float fHeight = static_cast<float>(height * 0.5);
+			_viewData[id]._mode[_modelCount]._catback =
+				new Sprite(x, y, fWidth, fHeight,catbackgroundTexture->id,_programId);
+		} else
+			_viewData[id]._mode[_modelCount]._catback=NULL;
 
 		/***************************** keys ***************************************/
-		_viewData[id]._mode[_modelCount]._keysCount = ModelKeyCount[_modelCount];
+		string _keysImagePath =targetPath + _modeinfo[_modelCount].KeysImagePath + "/";
+		_viewData[id]._mode[_modelCount]._keysCount =_modeinfo[_modelCount].KeysCount;
+
 		//load keyboard
-		for (int i = 0; i < ModelKeyCount[_modelCount]; i++) {
-			string imageName = KeyImageName[i];
+		for (int i = 0; i < _viewData[id]._mode[_modelCount]._keysCount; i++) {
+			if (!_modeinfo[_modelCount].KeysImageName[i])
+				break;
+
+			string imageName =_modeinfo[_modelCount].KeysImageName[i];
 			LAppTextureManager::TextureInfo *KeysTexture =
 				textureManager->CreateTextureFromPngFile(
-					targetPath + keyboardimagepath +
-					imageName);
-			x = width * 0.5f;
-			y = height * 0.45f;
-			fWidth = static_cast<float>(KeysTexture->width);
-			fHeight = static_cast<float>(KeysTexture->height);
-			_viewData[id]._mode[_modelCount]._keys[i]=
-				new Sprite(x, y, fWidth, fHeight, KeysTexture->id, _programId);
+					_keysImagePath + imageName);
+			float x = width * 0.5f;
+			float y = height * 0.5f;
+			float fWidth = static_cast<float>(width * 0.5);
+			float fHeight = static_cast<float>(height * 0.5);
+			_viewData[id]._mode[_modelCount]._keys[i] =
+				new Sprite(x, y, fWidth, fHeight,KeysTexture->id, _programId);
 		}
 
+		/***************************** lefthand ***************************************/
+
+		if (strcmp(_modeinfo[_modelCount].LeftHandImagePath, "") != 0) {
+
+			string _leftHandsImagePath =targetPath + _modeinfo[_modelCount].LeftHandImagePath +"/";
+			if (strcmp(_modeinfo[_modelCount].LeftHandUpImageName, "") != 0){
+				//load left hand up
+				LAppTextureManager::TextureInfo *LeftHandUpTexture =
+					textureManager->CreateTextureFromPngFile(
+						_leftHandsImagePath +
+						_modeinfo[_modelCount].LeftHandUpImageName);
+				float x = width * 0.5f;
+				float y = height * 0.5f;
+				float fWidth = static_cast<float>(width * 0.5);
+				float fHeight = static_cast<float>(height * 0.5);
+				_viewData[id]._mode[_modelCount]._leftHandUp =
+					new Sprite(x, y, fWidth, fHeight, LeftHandUpTexture->id,_programId);
+			} else
+				_viewData[id]._mode[_modelCount]._leftHandUp = NULL;
+		
+			//load left hands
+			_viewData[id]._mode[_modelCount]._leftHandsCount =_modeinfo[_modelCount].ModelLeftHandCount;
+			for (int i = 0;i < _viewData[id]._mode[_modelCount]._leftHandsCount;i++) {
+				string imageName =_modeinfo[_modelCount].LeftHandImageName[i];
+				LAppTextureManager::TextureInfo *HandsTexture =
+					textureManager->CreateTextureFromPngFile(
+						_leftHandsImagePath +imageName);
+				float x = width * 0.5f;
+				float y = height * 0.5f;
+				float fWidth = static_cast<float>(width * 0.5);
+				float fHeight = static_cast<float>(height * 0.5);
+				_viewData[id]._mode[_modelCount]._leftHands[i]=
+					new Sprite(x, y, fWidth, fHeight,HandsTexture->id, _programId);
+			}			
+
+		} else {
+			_viewData[id]._mode[_modelCount]._leftHandUp = NULL;
+			_viewData[id]._mode[_modelCount]._leftHandsCount = 0;
+		}
+			
+		/***************************** righthands ***************************************/
+
+		if (strcmp(_modeinfo[_modelCount].RightHandImagePath ,"")!=0) {
+
+			string _rightHandsImagePath =targetPath + _modeinfo[_modelCount].RightHandImagePath +"/";
+			if (strcmp(_modeinfo[_modelCount].RightHandUpImageName, "") != 0)
+			{
+
+				//load right hand up
+				LAppTextureManager::TextureInfo *RightHandUpTexture =
+					textureManager->CreateTextureFromPngFile(
+						_rightHandsImagePath +
+						_modeinfo[_modelCount].RightHandUpImageName);
+				float x = width * 0.5f;
+				float y = height * 0.5f;
+				float fWidth = static_cast<float>(width * 0.5);
+				float fHeight = static_cast<float>(height * 0.5);
+				_viewData[id]._mode[_modelCount]._rightHandUp =
+					new Sprite(x, y, fWidth, fHeight,RightHandUpTexture->id, _programId);
+			} else 
+				_viewData[id]._mode[_modelCount]._rightHandUp =NULL;
+			
+		
+
+			//load right hands
+			_viewData[id]._mode[_modelCount]._rightHandsCount = _modeinfo[_modelCount].ModelRightHandCount;
+			for (int i = 0; i < _viewData[id]._mode[_modelCount]._rightHandsCount; i++) {
+				string imageName = _modeinfo[_modelCount].RightHandImageName[i];
+				LAppTextureManager::TextureInfo *HandsTexture =
+					textureManager->CreateTextureFromPngFile(
+						_rightHandsImagePath + imageName);
+				float x = width * 0.5f;
+				float y = height * 0.5f;
+				float fWidth = static_cast<float>(width * 0.5);
+				float fHeight = static_cast<float>(height * 0.5);
+				_viewData[id]._mode[_modelCount]._rightHands[i] =
+					new Sprite(x, y, fWidth, fHeight, HandsTexture->id, _programId);
+			}
+
+
+		} else {
+			_viewData[id]._mode[_modelCount]._rightHandUp = NULL;
+			_viewData[id]._mode[_modelCount]._rightHandsCount = 0;
+		}
+			
+		
 	}
 
 }
 
-void View::PreModelDraw(Model& refModel,int id)
+void View::InitializeModel(int id)
+{
+	MODE_INFO *_modeinfo = _infoReader->_modeInfo;
+	Live2DManager *Live2DManager = Live2DManager::GetInstance();
+
+	const string resourcesPath = ResourcesPath;
+	const string modePath = resourcesPath + ModePath;
+	for (int _modelCount = 0; _modelCount < _infoReader->ModeCount;_modelCount++) {
+
+		string targetPath =modePath + _infoReader->ModePath[_modelCount] + "/";
+
+		_viewData[id]._mode[_modelCount]._haseModel =_modeinfo[_modelCount].HasModel;
+		string _catModelPath =targetPath + _modeinfo[_modelCount].CatModelPath;
+		string _catModelName = Pal::GetModelName(_catModelPath.c_str());
+		_viewData[id]._mode[_modelCount]._modelId =Live2DManager->ChangeScene((_catModelPath + "/" + _catModelName).c_str());
+
+		_viewData[id]._mode[_modelCount]._hasLeftHandModel =_modeinfo[_modelCount].ModelHasLeftHandModel;
+		string _LeftHandModelPath =targetPath +_modeinfo[_modelCount].ModelLeftHandModelPath;
+		string _LeftHandModelName =Pal::GetModelName(_LeftHandModelPath.c_str());
+		_viewData[id]._mode[_modelCount]._leftHandModelId =Live2DManager->ChangeScene((_LeftHandModelPath + "/" + _LeftHandModelName).c_str());
+
+		_viewData[id]._mode[_modelCount]._hasRightHandModel =_modeinfo[_modelCount].ModelHasRightHandModel;
+		string _RightHandModelPath =targetPath +_modeinfo[_modelCount].ModelRightHandModelPath;
+		string _RightHandModelName =Pal::GetModelName(_RightHandModelPath.c_str());
+		_viewData[id]._mode[_modelCount]._rightHandModelId =Live2DManager->ChangeScene((_RightHandModelPath + "/" +_RightHandModelName).c_str());
+
+	}
+}
+
+void View::PreModelDraw(Model& refModel)
 {
     Csm::Rendering::CubismOffscreenFrame_OpenGLES2* useTarget = NULL;
 
-    if (_viewData[id].target != SelectTarget_None)
+    if (target != SelectTarget_None)
     {
-	    useTarget = (_viewData[id].target == SelectTarget_ViewFrameBuffer)
+	    useTarget = (target == SelectTarget_ViewFrameBuffer)
 				? &_renderBuffer
 				: &refModel.GetRenderBuffer();
 
         if (!useTarget->IsValid())
         {
             int width, height;
-	    width = VtuberDelegate::GetInstance()->getBufferWidth(id);
-	    height = VtuberDelegate::GetInstance()->getBufferHeight(id);
+	    width = VtuberDelegate::GetInstance()->getBufferWidth(0);
+	    height = VtuberDelegate::GetInstance()->getBufferHeight(0);
             if (width != 0 && height != 0)
             {
                 
@@ -341,13 +525,13 @@ void View::PreModelDraw(Model& refModel,int id)
     }
 }
 
-void View::PostModelDraw(Model& refModel,int id)
+void View::PostModelDraw(Model& refModel)
 {
     Csm::Rendering::CubismOffscreenFrame_OpenGLES2* useTarget = NULL;
 
-    if (_viewData[id].target != SelectTarget_None)
+    if (target != SelectTarget_None)
     {
-	    useTarget = (_viewData[id].target == SelectTarget_ViewFrameBuffer)
+	    useTarget = (target == SelectTarget_ViewFrameBuffer)
 				? &_renderBuffer
 				: &refModel.GetRenderBuffer();
      
@@ -357,7 +541,7 @@ void View::PostModelDraw(Model& refModel,int id)
 
 void View::SwitchRenderingTarget(SelectTarget targetType,int id)
 {
-    _viewData[id].target = targetType;
+    target = targetType;
 }
 
 void View::SetRenderTargetClearColor(float r, float g, float b)
@@ -377,9 +561,9 @@ Csm::CubismMatrix44 *View::GetDeviceToScreenMatrix(int id)
 	return _viewData[id]._deviceToScreen;
 }
 
-uint16_t View::GetTotalViewer()
+InfoReader *View::GetInfoReader()
 {
-	return dataCount;
+	return _infoReader;
 }
 
 float View::TransformViewX(float deviceX,int id) const
@@ -394,6 +578,11 @@ float View::TransformViewY(float deviceY,int id) const
 	return _viewData[id]._viewMatrix->InvertTransformY(screenY); // 拡大、縮小、移動後の値。
 }
 
+EventManager *View::GetEventManager()
+{
+	return eventManager;
+}
+
 void View::OnMouseMoved(float pointX, float pointY,int id) const
 {
 	float viewX =this->TransformViewX(eventManager->GetX(), id);
@@ -401,54 +590,10 @@ void View::OnMouseMoved(float pointX, float pointY,int id) const
 	eventManager->MouseEventMoved(pointX, pointY);
 }
 
-void View::OnKeyDown(int _key) const {
-	eventManager->KeyEventDown(_key);
-}
-
-void View::OnKeyUp(int _key) const {
-	eventManager->KeyEventUp(_key);
-}
-
-double View::GetMouseX()
-{
-	int width, height;
-	Pal::GetDesktopResolution(width,height);
-	return static_cast<double>(eventManager->GetCurrentMouseX()) /
-	       static_cast<double>(width);
-}
-
-double View::GetMouseY()
-{
-	int width, height;
-	Pal::GetDesktopResolution(width, height);
-	return static_cast<double>(eventManager->GetCurrentMouseY()) /
-	       static_cast<double>(height);
-}
-
-void View::OnRButtonDown() const {
-	eventManager->RightButtonDown();
-}
-
-void View::OnRButtonUp() const {
-	eventManager->RightButtonUp();
-}
-
-void View::OnLButtonDown() const {
-	eventManager->LeftButtonDown();
-}
-
-void View::OnLButtonUp() const {
-	eventManager->LeftButtonUp();
-}
-
-bool View::GetLButton()
-{
-	return eventManager->GetLeftButton();
-}
-
-bool View::GetRButton()
-{
-	return eventManager->GetRightButton();
+void View::Update( bool _isLive2D, bool _isUseMask) {
+	
+	isUseLive2d = _isLive2D;
+	isUseMask = _isUseMask;
 }
 
 void View::setMod(uint16_t i)
@@ -456,7 +601,4 @@ void View::setMod(uint16_t i)
 	_mod = i;
 }
 
-void View::setLive2D(bool _isLive2D) {
-	isUseLive2d = _isLive2D;
-}
 

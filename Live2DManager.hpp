@@ -57,8 +57,6 @@ public:
     */
     void ReleaseAllModel(Csm::csmUint16 id);
 
-    void ReleaseModel(Csm::csmUint16 id);
-
     /**
     * @brief   画面を更新するときの処理
     *          モデルの更新処理および描画処理を行う
@@ -69,7 +67,15 @@ public:
     * @brief   シーンを切り替える<br>
     *           サンプルアプリケーションではモデルセットの切り替えを行う。
     */
-    Csm::csmBool ChangeScene(const Csm::csmChar * _modelPath,Csm::csmInt16 _id);
+    Csm::csmInt32 ChangeScene(const Csm::csmChar *_modelPath);
+
+    void ChangeMouseMovement(Csm::csmBool _mouse);
+
+    void UpdateModelSetting(Csm::csmBool randomMotion,
+			    Csm::csmFloat32 delayTime, Csm::csmBool isBreath,
+			    Csm::csmBool isEyeBlink,Csm::csmBool isTrack,
+			    Csm::csmBool isMouseHorizontalFlip,
+			    Csm::csmBool _sMouseVerticalFlip);
 
 private:
     /**
@@ -83,4 +89,15 @@ private:
     virtual ~Live2DManager();
 
     ModelData _modeldata[MAXMODELDATA];
+
+    Csm::csmInt32 _modelCounter;
+
+    Csm::csmBool _isUseRelativeMouse;
+    Csm::csmBool _randomMotion;
+    Csm::csmFloat32 _delayTime;
+    Csm::csmBool _isBreath;
+    Csm::csmBool _isEyeBlink;
+    Csm::csmBool _isTrack;
+    Csm::csmBool _isMouseHorizontalFlip;
+    Csm::csmBool _IsMouseVerticalFlip;
 };

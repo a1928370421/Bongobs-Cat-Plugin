@@ -1,0 +1,44 @@
+{
+  "BackgroundImageName": "l2dmousebg.png",
+  "CatBackgroundImageName": "mousebg.png",
+
+  "HasModel": true,
+  "CatModelPath": "model/cat",
+
+  "KeysImagePath": "keyboard",
+  "KeysImageName": [
+    "0.png",
+    "1.png",
+    "2.png",
+    "3.png",
+    "4.png",
+    "5.png",
+    "6.png"
+  ],
+  "KeyUse": [
+    "w",
+    "a",
+    "s",
+    "d",
+    "shift",
+    "ctrl",
+    "space"
+  ],
+
+  "ModelHasLeftHandModel": false,
+  "ModelLeftHandModelPath": "",
+
+  "LeftHandImagePath": "lefthand",
+  "LeftHandUpImageName": "up.png",
+  "LeftHandImageName": [
+  ],
+
+  "ModelHasRightHandModel": true,
+  "ModelRightHandModelPath": "model/cat right hand",
+
+  "RightHandImagePath": "",
+  "RightHandUpImageName": "",
+  "RightHandImageName": []
+
+
+}

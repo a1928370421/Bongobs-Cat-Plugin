@@ -11,7 +11,7 @@ namespace {
     static bool isInit;
 
     static int initCount = 0;
-}
+    }
 
 void VtuberFrameWork::InitVtuber(int id)
 {
@@ -41,25 +41,32 @@ void VtuberFrameWork::ReanderVtuber(int targatid, char *data, int bufferWidth,
 void VtuberFrameWork::UinitVtuber(int id)
 {   
     initCount--;
-    if (id==1)
-	    VtuberDelegate::GetInstance()->ReleaseResource(id);
     if (initCount == 0 && isInit) {
+	    VtuberDelegate::GetInstance()->ReleaseResource(id);
 	    isInit = false;
 	    VtuberDelegate::GetInstance()->Release();
+	    VtuberDelegate::ReleaseInstance();
     }
 }
 
 void VtuberFrameWork::UpData(int id,double _x, double _y, int width, int height,
 			     double sc,double _delayTime, bool _randomMotion,bool _break,
 			     bool _eyeBlink,const char *modelPath,bool _tarck,
-			     const char *mode,bool _live2d)
+			     const char *mode, bool _live2d,
+			     bool relative_mouse, bool _isMouseHorizontalFlip,
+			     bool _isMouseVerticalFlip,bool _isUsemask)
 {
 
 	VtuberDelegate::GetInstance()->UpdataViewWindow(_x,_y,width, height,sc, id);
 	VtuberDelegate::GetInstance()->updataModelSetting(
-		_randomMotion, _delayTime, _break, _eyeBlink, _tarck,id );
+		_randomMotion, _delayTime, _break, _eyeBlink, _tarck, _isMouseHorizontalFlip, _isMouseVerticalFlip,id);
 	VtuberDelegate::GetInstance()->ChangeModel(modelPath,id);
-	VtuberDelegate::GetInstance()->ChangeMode(mode, _live2d, id);
+	VtuberDelegate::GetInstance()->ChangeMode(mode, _live2d, _isUsemask,id);
+	VtuberDelegate::GetInstance()->ChangeMouseMovement(relative_mouse);
+}
+
+const char** VtuberFrameWork::GetModeDefine(int &_size) {
+	return VtuberDelegate::GetInstance()->GetModeDefine(_size);
 }
 
 int VtuberFrameWork::GetWidth(int id)
