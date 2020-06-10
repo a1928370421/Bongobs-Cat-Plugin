@@ -13,4 +13,4 @@
 * Download [Bongo.Cat.zip](https://github.com/a1928370421/Bongobs-Cat-Plugin/releases/download/0.1.1/Bango.Cat.zip)
 * Unzip file to OBS root direction
 # Bongo cat
-![](https://github.com/a1928370421/Bongobs-Cat-Plugin/blob/master/Resources/ezgif-2-2d5ba7544532.gif)
+![](https://github.com/a1928370421/Bongobs-Cat-Plugin/blob/master/Resources/Bango%20Cat/ezgif-2-81825e3faab3.gif)
