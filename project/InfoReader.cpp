@@ -4,7 +4,7 @@
 #include "Define.hpp"
 #include<string>
 #include <vector>
-#include"CubismSdk/Framework/src/Type/CubismBasicType.hpp"
+#include"Type/CubismBasicType.hpp"
 
 using namespace std;
 using namespace Json;
