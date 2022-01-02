@@ -23,9 +23,10 @@ const char * VtuberPlugin::VtuberPlugin::VtuberGetName(void *unused)
 void * VtuberPlugin::VtuberPlugin::VtuberCreate(obs_data_t *settings,
 							   obs_source_t *source)
 {
+	static int id = 0;
 	Vtuber_data *vtb = (Vtuber_data *)malloc(sizeof(Vtuber_data));
 	vtb->source = source;
-	vtb->modelId = 0;
+	vtb->modelId = id++;
 
 	double x = obs_data_get_double(settings, "x");
 	double y = obs_data_get_double(settings, "y");
@@ -58,7 +59,7 @@ void VtuberPlugin::VtuberPlugin::VtuberDestroy(void *data)
 	
 	Vtuber_data *spv = (Vtuber_data *)data;
 
-	VtuberFrameWork::UinitVtuber(0);
+	VtuberFrameWork::UinitVtuber(spv->modelId);
 
 	delete spv;
 }

@@ -96,11 +96,8 @@ bool VtuberDelegate::Initialize(int id)
 	    _hook = new Hook();
 	    _hook->Strat();
     
+	    InitializeCubism();
     }
-    
-    
-    // Cubism SDK の初期化
-    InitializeCubism();
 
     _view->InitializeSpirite(id);
     _view->InitializeModel(id);
@@ -172,7 +169,7 @@ void VtuberDelegate::ChangeMode(const char *_mode,bool _live2d,bool _isUseMask, 
 	for (int i = 0; i < _infoReader->ModeCount; i++) {
 		const char *a = _infoReader->ModePath[i];
 		if (strcmp(_mode, _infoReader->ModePath[i]) == 0) {
-			_view->setMod(i);
+			_view->setMod(i, id);
 			
 		}			
 	}

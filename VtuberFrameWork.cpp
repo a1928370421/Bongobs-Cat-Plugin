@@ -8,7 +8,7 @@
 namespace {
     static bool isLoad;
 
-    static bool isInit;
+    static bool isInit[1024];
 
     static int initCount = 0;
     }
@@ -16,9 +16,6 @@ namespace {
 void VtuberFrameWork::InitVtuber(int id)
 {
     initCount++;
-    if (initCount == 0) {
-	isInit = false;
-    }
     isLoad = VtuberDelegate::GetInstance()->LoadResource(id);
 }
 
@@ -27,8 +24,8 @@ void VtuberFrameWork::ReanderVtuber(int targatid, char *data, int bufferWidth,
 {
     if (isLoad) {
     
-    if (initCount>0 && !isInit) {
-	    isInit = true;
+    if (initCount>0 && !isInit[targatid]) {
+	    isInit[targatid] = true;
 	    VtuberDelegate::GetInstance()->Initialize(targatid);
     }
 
@@ -41,9 +38,9 @@ void VtuberFrameWork::ReanderVtuber(int targatid, char *data, int bufferWidth,
 void VtuberFrameWork::UinitVtuber(int id)
 {   
     initCount--;
-    if (initCount == 0 && isInit) {
-	    VtuberDelegate::GetInstance()->ReleaseResource(id);
-	    isInit = false;
+	VtuberDelegate::GetInstance()->ReleaseResource(id);
+	isInit[id] = false;
+    if (initCount == 0) {
 	    VtuberDelegate::GetInstance()->Release();
 	    VtuberDelegate::ReleaseInstance();
     }
