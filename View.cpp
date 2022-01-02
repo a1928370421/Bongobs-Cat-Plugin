@@ -14,7 +14,7 @@
 using namespace std;
 using namespace Define;
 
-View::View() : _programId(0), _mod(0), isUseLive2d(true), isUseMask(false)
+View::View() : _programId(0), isUseLive2d(true), isUseMask(false)
 {
     _clearColor[0] = 1.0f;
     _clearColor[1] = 1.0f;
@@ -121,8 +121,8 @@ void View::UpdataViewData(int id) {
 
 int View::TranslateKey(int key, int id)
 {
-	for (int j = 0; j < _viewData[id]._mode[_mod]._keysCount; j++) {
-		if (strcmp(_infoReader->_modeInfo[_mod].KeyUse[j], KeyDefine[key]) == 0)
+	for (int j = 0; j < _viewData[id]._mode[_mod[id]]._keysCount; j++) {
+		if (strcmp(_infoReader->_modeInfo[_mod[id]].KeyUse[j], KeyDefine[key]) == 0)
 			return j;
 	}
 	return -1;
@@ -141,21 +141,21 @@ void View::RenderBackgroud(int id)
 {
 	
 	//render backgroud
-	if (isUseLive2d && _viewData[id]._mode[_mod]._haseModel) {
+	if (isUseLive2d && _viewData[id]._mode[_mod[id]]._haseModel) {
 
-		if (_viewData[id]._mode[_mod]._back)
-			_viewData[id]._mode[_mod]._back->Render(id);
+		if (_viewData[id]._mode[_mod[id]]._back)
+			_viewData[id]._mode[_mod[id]]._back->Render(id);
 
 	} else {
-		if (_viewData[id]._mode[_mod]._catback)
-			_viewData[id]._mode[_mod]._catback->Render(id);
+		if (_viewData[id]._mode[_mod[id]]._catback)
+			_viewData[id]._mode[_mod[id]]._catback->Render(id);
 	}
 }
 
 void View::RenderCat(int id) {
 	Live2DManager *Live2DManager = Live2DManager::GetInstance();
-	if (isUseLive2d && _viewData[id]._mode[_mod]._haseModel) {
-		Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._modelId);
+	if (isUseLive2d && _viewData[id]._mode[_mod[id]]._haseModel) {
+		Live2DManager->OnUpdate(_viewData[id]._mode[_mod[id]]._modelId);
 	}
 }
 
@@ -166,8 +166,8 @@ void View::RenderKeys(int id)
 		if (eventManager->GetKeySignal(i)) {
 			int key = TranslateKey(i, id);
 			if (key != -1) {
-				if (_viewData[id]._mode[_mod]._keys[key])
-					_viewData[id]._mode[_mod]._keys[key]->Render(id);
+				if (_viewData[id]._mode[_mod[id]]._keys[key])
+					_viewData[id]._mode[_mod[id]]._keys[key]->Render(id);
 			}
 		}
 	}
@@ -177,15 +177,15 @@ bool View::RenderLeftHands(int id) {
 
 	Live2DManager *Live2DManager = Live2DManager::GetInstance();
 	bool isUp = true;
-	if (_viewData[id]._mode[_mod]._leftHandsCount > 0) {	
+	if (_viewData[id]._mode[_mod[id]]._leftHandsCount > 0) {	
 		for (int i = 0; i < KeyAmount; i++) {
 			if (eventManager->GetKeySignal(i)) {
 
 				int key = TranslateKey(i, id);
-				if (key != -1 && key < _viewData[id]._mode[_mod]._leftHandsCount) {
+				if (key != -1 && key < _viewData[id]._mode[_mod[id]]._leftHandsCount) {
 
-					if (_viewData[id]._mode[_mod] ._leftHands[key])
-						_viewData[id]._mode[_mod]._leftHands[key]->Render(id);
+					if (_viewData[id]._mode[_mod[id]] ._leftHands[key])
+						_viewData[id]._mode[_mod[id]]._leftHands[key]->Render(id);
 
 					isUp = false;
 					break; //cat only have one right hand
@@ -193,9 +193,9 @@ bool View::RenderLeftHands(int id) {
 			}
 		}
 
-	} else if (_viewData[id]._mode[_mod]._hasLeftHandModel) {
+	} else if (_viewData[id]._mode[_mod[id]]._hasLeftHandModel) {
 		if (!isUseLive2d) {	
-			Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._leftHandModelId);
+			Live2DManager->OnUpdate(_viewData[id]._mode[_mod[id]]._leftHandModelId);
 		}
 		isUp = false;		
 	} else if (isUseLive2d)
@@ -208,25 +208,25 @@ bool View::RenderRightHands(int id) {
 
 	Live2DManager *Live2DManager = Live2DManager::GetInstance();
 	bool isUp = true;
-	if (_viewData[id]._mode[_mod]._rightHandsCount > 0) {
+	if (_viewData[id]._mode[_mod[id]]._rightHandsCount > 0) {
 		
 
 		for (int i = 0; i < KeyAmount; i++) {
 			if (eventManager->GetKeySignal(i)) {
-				int key = TranslateKey(i, id) - _viewData[id]._mode[_mod]._leftHandsCount;
+				int key = TranslateKey(i, id) - _viewData[id]._mode[_mod[id]]._leftHandsCount;
 
-				if (key >= 0 && key < _viewData[id]._mode[_mod]._rightHandsCount) {
+				if (key >= 0 && key < _viewData[id]._mode[_mod[id]]._rightHandsCount) {
 
-					if (_viewData[id]._mode[_mod]._rightHands[key])
-						_viewData[id]._mode[_mod]._rightHands[key]->Render(id);
+					if (_viewData[id]._mode[_mod[id]]._rightHands[key])
+						_viewData[id]._mode[_mod[id]]._rightHands[key]->Render(id);
 					isUp = false;
 					break; //cat only have one right hand
 				}
 			}
 		}			
-	} else if (_viewData[id]._mode[_mod]._hasRightHandModel) {	
+	} else if (_viewData[id]._mode[_mod[id]]._hasRightHandModel) {	
 		if (!isUseLive2d) {	
-			Live2DManager->OnUpdate(_viewData[id]._mode[_mod]._rightHandModelId);
+			Live2DManager->OnUpdate(_viewData[id]._mode[_mod[id]]._rightHandModelId);
 		}
 		isUp = false;	
 	} else if (isUseLive2d)
@@ -237,12 +237,12 @@ bool View::RenderRightHands(int id) {
 
 void View::RenderUphands(bool leftup, bool righttup, int id) {
 	if (leftup) {
-		if (_viewData[id]._mode[_mod]._leftHandUp)
-			_viewData[id]._mode[_mod]._leftHandUp->Render(id);
+		if (_viewData[id]._mode[_mod[id]]._leftHandUp)
+			_viewData[id]._mode[_mod[id]]._leftHandUp->Render(id);
 	}
 	if (righttup) {
-		if (_viewData[id]._mode[_mod]._rightHandUp)
-			_viewData[id]._mode[_mod]._rightHandUp->Render(id);
+		if (_viewData[id]._mode[_mod[id]]._rightHandUp)
+			_viewData[id]._mode[_mod[id]]._rightHandUp->Render(id);
 	}
 
 }
@@ -260,8 +260,6 @@ void View::ReanderMask(int id) {
 	if (isUseMask&&_viewData[id]._face[_viewData[id]._curentface])
 		  _viewData[id]._face[_viewData[id]._curentface]->Render(id);
 }
-
-void View::ChangeMode(int mod, int id) {}
 
 void View::Render(int id)
 {
@@ -596,9 +594,9 @@ void View::Update( bool _isLive2D, bool _isUseMask) {
 	isUseMask = _isUseMask;
 }
 
-void View::setMod(uint16_t i)
+void View::setMod(uint16_t i, int id)
 {
-	_mod = i;
+	_mod[id] = i;
 }
 
 

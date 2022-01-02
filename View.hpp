@@ -123,7 +123,7 @@ public:
 
      void Update(bool _isLive2D,bool _isUseMask);
 
-     void setMod(uint16_t i);
+     void setMod(uint16_t i, int id);
 
 private:
     void UpdataViewData(int id);
@@ -146,11 +146,9 @@ private:
 
     void ReanderMask(int id);
 
-    void ChangeMode(int mod, int id);
+    ViewData _viewData[MAXVIEWDATA] = {};
 
-    ViewData _viewData[MAXVIEWDATA];
-
-    uint16_t _mod;
+    uint16_t _mod[MAXVIEWDATA] = {};
     bool isUseLive2d;
     bool isUseMask;
 
