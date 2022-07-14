@@ -7,10 +7,10 @@
 # Support
 * Support OBS Studio version** : 25.0.0+
 # 如何使用
-* 下载 [Bongo.Cat.zip](https://github.com/a1928370421/Bongobs-Cat-Plugin/releases/download/0.1.1/Bango.Cat.zip)
+* 下载 [Bongo.Cat.zip](https://github.com//a1928370421/Bongobs-Cat-Plugin/releases/download/0.2.01/Bango.Cat.zip)
 * 解压缩文件到OBS根目录
 # How to use
-* Download [Bongo.Cat.zip](https://github.com/a1928370421/Bongobs-Cat-Plugin/releases/download/0.1.1/Bango.Cat.zip)
+* Download [Bongo.Cat.zip](https://github.com/a1928370421/Bongobs-Cat-Plugin/releases/download/0.2.01/Bango.Cat.zip)
 * Unzip file to OBS root direction
 # Bongo cat
 ![](https://github.com/a1928370421/Bongobs-Cat-Plugin/blob/master/Resources/Bango%20Cat/ezgif-2-81825e3faab3.gif)
